@@ -10,8 +10,8 @@ package parcial_resolucion2;
  * @author Usuario
  */
 public class Pila {
-    private  Nodo_curso tope=null;
-    public void Insertar(Nodo_curso nuevo_curso){
+    private  Nodo_curso tope=null; //hago el tope como un objeto del nodo curso
+    public void Insertar(Nodo_curso nuevo_curso){ // recivo un parametro de tipo nodo curso
         if(tope==null){
             tope = nuevo_curso;
             nuevo_curso.setSig(null);
@@ -23,13 +23,13 @@ public class Pila {
         }
     }
     
-    public Nodo_curso Tope(){
+    public Nodo_curso Tope(){ //envio el nodo tope, que es de tipo nodo curso
         return tope;
     }
     
     public void Desapilar(){
-        Nodo_curso aux = tope;
-        tope=aux.getSig();
-        aux=null;
+        Nodo_curso aux = tope;//hago un axiliar de tipo nodo curso que sera igual al tope
+        tope=aux.getSig(); //digo que el siguiente de el auxiliar sera ahora el tope 
+        aux=null;//elimino el que estaba anteriormente como tope
     }
 }
