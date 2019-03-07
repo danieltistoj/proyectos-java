@@ -11,4 +11,34 @@ package prueba1.pkg1;
  */
 public class Curso {
     
+   private String nombre;
+   private int codigo;
+   private Colaes estu;
+
+    public Colaes getEstu() {
+        return estu;
+    }
+
+    public void setEstu(Colaes estu) {
+        this.estu = estu;
+    }
+   
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+   
+   
 }
