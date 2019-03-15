@@ -19,7 +19,7 @@ import javax.swing.JTextField;
 public class Ventana {
     private JFrame ventana;
     private JPanel panel, panel2, panel3, panel4;
-    private JButton boton2_1, boton3_1,boton1_2,boton3_2,boton1_3,boton2_3,inicio;
+    private JButton boton2_1, boton3_1,boton1_2,boton3_2,boton1_3,boton2_3,inicio,reiniciar;
     private Barra barra, barra2, barra3;
     
     private Pila pila1 =new Pila();
@@ -30,6 +30,8 @@ public class Ventana {
     
     
     public Ventana(){
+        reiniciar = new JButton("reiniciar");
+        reiniciar.setBounds(740, 100, 100, 30);
         //botones de barras***
         boton2_1=new JButton("2");
         boton3_1=new JButton("3");
@@ -66,7 +68,7 @@ public class Ventana {
         barra2 = new Barra();
         barra3= new Barra();
         inicio = new JButton("Iniciar");
-        inicio.setBounds(555, 100, 100, 30);//boton inicializar
+        inicio.setBounds(540, 100, 100, 30);//boton inicializar
         texto = new JTextField();
         texto.setBounds(50,100,50,20);
          
@@ -86,7 +88,7 @@ public class Ventana {
         
         panel2 = new JPanel();
         panel2.setBounds(400,0,400,500);
-        panel2.setBackground(Color.LIGHT_GRAY);
+        panel2.setBackground(Color.WHITE);
         panel2.setLayout(null);
         panel2.setVisible(true);
         
@@ -120,6 +122,7 @@ public class Ventana {
         panel4.add(boton3_2);
         panel4.add(boton1_3);
         panel4.add(boton2_3);
+        panel4.add(reiniciar);
         
         //ACCCION DEL BOTON INICIAR..............
         inicio.addActionListener(new ActionListener() {
@@ -179,11 +182,11 @@ public class Ventana {
                         
                     }
                     else{
-                        int numeo_discos = pila2.getSize();
+                        int numero_discos = pila2.getSize();
                         if(pila1.getTope().getSize()<pila2.getTope().getSize()){
                         size = pila1.getTope().getSize();
                         x = pila1.getTope().getDisco().getX();
-                        y = 475-(25*numeo_discos);
+                        y = 475-(25*numero_discos);
                         ancho = pila1.getTope().getDisco().getAncho();
                         alto = pila1.getTope().getDisco().getAlto();
                         
@@ -240,11 +243,11 @@ public class Ventana {
                         
                     }
                     else{
-                        int numeo_discos = pila2.getSize();
-                        if(pila1.getTope().getSize()<pila2.getTope().getSize()){
+                        int numero_discos = pila2.getSize();
+                        if(pila1.getTope().getSize()<pila3.getTope().getSize()){
                         size = pila1.getTope().getSize();
                         x = pila1.getTope().getDisco().getX();
-                        y = 475;
+                        y = 475-(25*numero_discos);
                         ancho = pila1.getTope().getDisco().getAncho();
                         alto = pila1.getTope().getDisco().getAlto();
                         
@@ -271,7 +274,287 @@ public class Ventana {
         });
         //FIN DEL BOTON...
         //FIN DE LOS BOTONES DE LA BARRA 1.
-        
+        //ACCIONES DE LOS BOTONES DE LA BARRA 2...
+         boton1_2.addActionListener(new ActionListener() {//boton para mover a la barra 1 desde la barra 2
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(pila2.vacia()!=true){
+                       Nodo nodo = new Nodo();
+                        int x, y, ancho, alto, size, numero_color;
+                        numero_color = pila2.getTope().getDisco().getNumero_color();
+                        
+                    if(pila1.vacia()){
+                        size = pila2.getTope().getSize();
+                        x = pila2.getTope().getDisco().getX();
+                        y = 475;
+                        ancho = pila2.getTope().getDisco().getAncho();
+                        alto = pila2.getTope().getDisco().getAlto();
+                        
+                        Disco disco = new Disco(x,y,ancho,alto);
+                        disco.setNumero_color(numero_color);
+                        nodo.setSize(size);
+                        nodo.setDisco(disco);
+                        panel2.remove(pila2.getTope().getDisco().getDisco());
+                        pila2.Desapilar();
+                        pila1.Insertar(nodo);
+                        
+                        panel.add(disco.getDisco());
+                        panel.add(barra.getBarra());
+                        panel2.repaint();
+                        panel.repaint();
+                        
+                    }
+                    else{
+                        int numero_discos = pila1.getSize();
+                        System.out.println(numero_discos);
+                        if(pila2.getTope().getSize()<pila1.getTope().getSize()){
+                          size = pila2.getTope().getSize();
+                        x = pila2.getTope().getDisco().getX();
+                        y = 475-(25*numero_discos);
+                        ancho = pila2.getTope().getDisco().getAncho();
+                        alto = pila2.getTope().getDisco().getAlto();
+                        
+                        Disco disco = new Disco(x,y,ancho,alto);
+                        disco.setNumero_color(numero_color);
+                        nodo.setSize(size);
+                        nodo.setDisco(disco);
+                        panel2.remove(pila2.getTope().getDisco().getDisco());
+                        pila2.Desapilar();
+                        pila1.Insertar(nodo);
+                        
+                        panel.add(disco.getDisco());
+                        panel.add(barra.getBarra());
+                        panel2.repaint();
+                        panel.repaint();
+                            
+                        }
+                    }
+                }
+                else{
+                    System.out.println("vacia");
+                }
+            }
+        });
+         //boton para mover a la barra 3 desde la barra 2
+          boton3_2.addActionListener(new ActionListener() {//boton para mover a la barra 1 desde la barra 2
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(pila2.vacia()!=true){
+                       Nodo nodo = new Nodo();
+                        int x, y, ancho, alto, size, numero_color;
+                        numero_color = pila2.getTope().getDisco().getNumero_color();
+                        
+                    if(pila3.vacia()){
+                        size = pila2.getTope().getSize();
+                        x = pila2.getTope().getDisco().getX();
+                        y = 475;
+                        ancho = pila2.getTope().getDisco().getAncho();
+                        alto = pila2.getTope().getDisco().getAlto();
+                        
+                        Disco disco = new Disco(x,y,ancho,alto);
+                        disco.setNumero_color(numero_color);
+                        nodo.setSize(size);
+                        nodo.setDisco(disco);
+                        panel2.remove(pila2.getTope().getDisco().getDisco());
+                        pila2.Desapilar();
+                        pila3.Insertar(nodo);
+                        
+                        panel3.add(disco.getDisco());
+                        panel3.add(barra3.getBarra());
+                        panel2.repaint();
+                        panel3.repaint();
+                        
+                    }
+                    else{
+                        int numero_discos = pila3.getSize();
+                        System.out.println(numero_discos);
+                        if(pila2.getTope().getSize()<pila3.getTope().getSize()){
+                          size = pila2.getTope().getSize();
+                        x = pila2.getTope().getDisco().getX();
+                        y = 475-(25*numero_discos);
+                        ancho = pila2.getTope().getDisco().getAncho();
+                        alto = pila2.getTope().getDisco().getAlto();
+                        
+                        Disco disco = new Disco(x,y,ancho,alto);
+                        disco.setNumero_color(numero_color);
+                        nodo.setSize(size);
+                        nodo.setDisco(disco);
+                        panel2.remove(pila2.getTope().getDisco().getDisco());
+                        pila2.Desapilar();
+                        pila3.Insertar(nodo);
+                        
+                        panel3.add(disco.getDisco());
+                        panel3.add(barra3.getBarra());
+                        panel2.repaint();
+                        panel3.repaint();
+                            
+                        }
+                    }
+                }
+                else{
+                    System.out.println("vacia");
+                }
+            }
+        });
+        //FIN DE LOS BOTONES DE LA BARRA 2.
+        //ACCIONES DE LA BARRA 3...
+        //boton para mover a la barra 1 desde la barra 3..
+        boton1_3.addActionListener(new ActionListener() {//boton para mover a la barra 1 desde la barra 2
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(pila3.vacia()!=true){
+                       Nodo nodo = new Nodo();
+                        int x, y, ancho, alto, size, numero_color;
+                        numero_color = pila3.getTope().getDisco().getNumero_color();
+                        
+                    if(pila1.vacia()){
+                        size = pila3.getTope().getSize();
+                        x = pila3.getTope().getDisco().getX();
+                        y = 475;
+                        ancho = pila3.getTope().getDisco().getAncho();
+                        alto = pila3.getTope().getDisco().getAlto();
+                        
+                        Disco disco = new Disco(x,y,ancho,alto);
+                        disco.setNumero_color(numero_color);
+                        nodo.setSize(size);
+                        nodo.setDisco(disco);
+                        panel3.remove(pila3.getTope().getDisco().getDisco());
+                        pila3.Desapilar();
+                        pila1.Insertar(nodo);
+                        
+                        panel.add(disco.getDisco());
+                        panel.add(barra.getBarra());
+                        panel3.repaint();
+                        panel.repaint();
+                        
+                    }
+                    else{
+                        int numero_discos = pila1.getSize();
+                        System.out.println(numero_discos);
+                        if(pila3.getTope().getSize()<pila1.getTope().getSize()){
+                         size = pila3.getTope().getSize();
+                        x = pila3.getTope().getDisco().getX();
+                        y = 475-(25*numero_discos);
+                        ancho = pila3.getTope().getDisco().getAncho();
+                        alto = pila3.getTope().getDisco().getAlto();
+                        
+                        Disco disco = new Disco(x,y,ancho,alto);
+                        disco.setNumero_color(numero_color);
+                        nodo.setSize(size);
+                        nodo.setDisco(disco);
+                        panel3.remove(pila3.getTope().getDisco().getDisco());
+                        pila3.Desapilar();
+                        pila1.Insertar(nodo);
+                        
+                        panel.add(disco.getDisco());
+                        panel.add(barra.getBarra());
+                        panel3.repaint();
+                        panel.repaint();
+                            
+                        }
+                    }
+                }
+                else{
+                    System.out.println("vacia");
+                }
+            }
+        });
+        //boton para mover a la barra dos desde la barra 3.
+        boton2_3.addActionListener(new ActionListener() {//boton para mover a la barra 1 desde la barra 2
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(pila3.vacia()!=true){
+                       Nodo nodo = new Nodo();
+                        int x, y, ancho, alto, size, numero_color;
+                        numero_color = pila3.getTope().getDisco().getNumero_color();
+                        
+                    if(pila2.vacia()){
+                        size = pila3.getTope().getSize();
+                        x = pila3.getTope().getDisco().getX();
+                        y = 475;
+                        ancho = pila3.getTope().getDisco().getAncho();
+                        alto = pila3.getTope().getDisco().getAlto();
+                        
+                        Disco disco = new Disco(x,y,ancho,alto);
+                        disco.setNumero_color(numero_color);
+                        nodo.setSize(size);
+                        nodo.setDisco(disco);
+                        panel3.remove(pila3.getTope().getDisco().getDisco());
+                        pila3.Desapilar();
+                        pila2.Insertar(nodo);
+                        
+                        panel2.add(disco.getDisco());
+                        panel2.add(barra2.getBarra());
+                        panel3.repaint();
+                        panel2.repaint();
+                        
+                    }
+                    else{
+                        int numero_discos = pila2.getSize();
+                        System.out.println(numero_discos);
+                        if(pila3.getTope().getSize()<pila2.getTope().getSize()){
+                        size = pila3.getTope().getSize();
+                        x = pila3.getTope().getDisco().getX();
+                        y = 475-(25*numero_discos);
+                        ancho = pila3.getTope().getDisco().getAncho();
+                        alto = pila3.getTope().getDisco().getAlto();
+                        
+                        Disco disco = new Disco(x,y,ancho,alto);
+                        disco.setNumero_color(numero_color);
+                        nodo.setSize(size);
+                        nodo.setDisco(disco);
+                        panel3.remove(pila3.getTope().getDisco().getDisco());
+                        pila3.Desapilar();
+                        pila2.Insertar(nodo);
+                        
+                        panel2.add(disco.getDisco());
+                        panel2.add(barra2.getBarra());
+                        panel3.repaint();
+                        panel2.repaint();
+                            
+                        }
+                    }
+                }
+                else{
+                    System.out.println("vacia");
+                }
+            }
+        });
+        //FIN DE LOS BOTONES DE LA BARRA 3.
+        //ACCION DEL BOTON REINICIAR.
+        reiniciar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(pila1.vacia()!=true){
+                    Nodo aux = pila1.getTope();
+                    while(aux!=null){
+                       panel.remove(aux.getDisco().getDisco());
+                       pila1.Desapilar();
+                       panel.repaint();
+                       aux = pila1.getTope();
+                    }
+                }
+                if(pila2.vacia()!=true){
+                    Nodo aux = pila2.getTope();
+                    while(aux!=null){
+                       panel2.remove(aux.getDisco().getDisco());
+                       pila2.Desapilar();
+                       panel2.repaint();
+                       aux = pila2.getTope();
+                    }
+                    
+                }
+                if(pila3.vacia()!=true){
+                    Nodo aux = pila3.getTope();
+                    while(aux!=null){
+                       panel3.remove(aux.getDisco().getDisco());
+                       pila3.Desapilar();
+                       panel3.repaint();
+                       aux = pila3.getTope();
+                    }
+                }
+            }
+        });
     
              
         ventana.add(panel4);
