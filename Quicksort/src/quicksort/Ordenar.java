@@ -18,16 +18,11 @@ public class Ordenar {
            der = Lista_mayor(lista.getTope().getSig(),lista.getTope().getDato());
            izq = Ordenar(izq);
            der = Ordenar(der);
-          if(izq.Vacia()){
-             izq.Insertar(pivote);
-             izq = Insertar_Lista(izq, der.getTope());
-             lista = izq;
-          }
-          else{
+           
               izq.Insertar(pivote);
               izq = Insertar_Lista(izq,der.getTope());
               lista = izq;
-          }
+         
            
        }      
        return lista;
