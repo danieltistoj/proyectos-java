@@ -14,12 +14,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JDialog;
 
 
 public class Ventana {
+    private JDialog ventana2;
     private JFrame ventana;
     private JPanel panel, panel2, panel3, panel4;
-    private JButton boton2_1, boton3_1,boton1_2,boton3_2,boton1_3,boton2_3,inicio,reiniciar;
+    private JButton boton2_1, boton3_1,boton1_2,boton3_2,boton1_3,boton2_3,inicio,reiniciar,aceptar;
     private Barra barra, barra2, barra3;
     
     private Pila pila1 =new Pila();
@@ -27,11 +29,23 @@ public class Ventana {
     private Pila pila3 =new Pila();
     private JTextField texto;
     private JLabel txtB1, txtB2, txtB3, txt;
-    
+    private boolean iniciar=false;
     
     public Ventana(){
         reiniciar = new JButton("reiniciar");
         reiniciar.setBounds(740, 100, 100, 30);
+        //ventanda secundaria
+        ventana2 = new JDialog(ventana,"");
+        JLabel  txt_V2 = new JLabel("Juego en proceso");
+        txt_V2.setBounds(80, 50, 40, 30);
+        ventana2.getContentPane().add(txt_V2);
+        ventana2.pack();
+        ventana2.setSize(200, 100);
+        ventana2.setLocationRelativeTo(null);
+        ventana2.setLayout(null);
+
+     
+
         //botones de barras***
         boton2_1=new JButton("2");
         boton3_1=new JButton("3");
@@ -128,7 +142,9 @@ public class Ventana {
         inicio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) { 
+                if(iniciar==false){
              int conta=Integer.parseInt(texto.getText());
+             iniciar = true;
              if(conta<=15){
              int conta2=1,x=0,y=475,alto=25,ancho=400, size=conta, aux=20;  
              while(conta2<=conta){
@@ -147,6 +163,10 @@ public class Ventana {
                             conta2++;
                         }  
                }
+                }
+                else{
+                ventana2.setVisible(true);
+            }
             }
         });
         
@@ -553,6 +573,7 @@ public class Ventana {
                        aux = pila3.getTope();
                     }
                 }
+                iniciar = false;
             }
         });
     
