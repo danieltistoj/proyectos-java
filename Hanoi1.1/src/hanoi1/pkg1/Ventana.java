@@ -15,37 +15,30 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 
 public class Ventana {
-    private JDialog ventana2;
+ 
     private JFrame ventana;
     private JPanel panel, panel2, panel3, panel4;
-    private JButton boton2_1, boton3_1,boton1_2,boton3_2,boton1_3,boton2_3,inicio,reiniciar,aceptar;
+    private JButton boton2_1, boton3_1,boton1_2,boton3_2,boton1_3,boton2_3,inicio,reiniciar,aceptar, instruccion;
     private Barra barra, barra2, barra3;
     
     private Pila pila1 =new Pila();
     private Pila pila2 =new Pila();
     private Pila pila3 =new Pila();
     private JTextField texto;
-    private JLabel txtB1, txtB2, txtB3, txt;
+    private JLabel txtB1, txtB2, txtB3, txt, pasos;
     private boolean iniciar=false;
     
     public Ventana(){
         reiniciar = new JButton("reiniciar");
         reiniciar.setBounds(740, 100, 100, 30);
-        //ventanda secundaria
-        ventana2 = new JDialog(ventana,"");
-        JLabel  txt_V2 = new JLabel("Juego en proceso");
-        txt_V2.setBounds(80, 50, 40, 30);
-        ventana2.getContentPane().add(txt_V2);
-        ventana2.pack();
-        ventana2.setSize(200, 100);
-        ventana2.setLocationRelativeTo(null);
-        ventana2.setLayout(null);
-
-     
-
+    
+        //boton instrucciones.
+        instruccion = new JButton("Instrucciones");
+        instruccion.setBounds(330, 100, 120, 30);
         //botones de barras***
         boton2_1=new JButton("2");
         boton3_1=new JButton("3");
@@ -81,7 +74,7 @@ public class Ventana {
         barra = new Barra();
         barra2 = new Barra();
         barra3= new Barra();
-        inicio = new JButton("Iniciar");
+        inicio = new JButton("Jugar");
         inicio.setBounds(540, 100, 100, 30);//boton inicializar
         texto = new JTextField();
         texto.setBounds(50,100,50,20);
@@ -137,15 +130,25 @@ public class Ventana {
         panel4.add(boton1_3);
         panel4.add(boton2_3);
         panel4.add(reiniciar);
-        
+        panel4.add(instruccion);
+        // ACCIONES BOTON INSTRUCCIONES...
+        instruccion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(ventana,"1) Solo se puede mover un disco a la vez. \n"+
+                "2) Un disco de mayor tamaño no puede estar sobre uno más pequeño que él mismo. \n"+
+                "3)Solo se puede desplazar el disco que se encuentre arriba en cada barra. ","Instrucciones",JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
         //ACCCION DEL BOTON INICIAR..............
         inicio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) { 
-                if(iniciar==false){
-             int conta=Integer.parseInt(texto.getText());
-             iniciar = true;
-             if(conta<=15){
+           if(texto.getText().length()!=0){// se ve si hay algo escrito en el texto
+             if(iniciar==false){
+             int conta=Integer.parseInt(texto.getText());//se convierten los valores de string a int 
+             if(conta<=15&&conta!=0&&conta>0){//se ve que valores se han ingresado en el texto
+              iniciar = true; // se indica que el juego ya ha iniciado
              int conta2=1,x=0,y=475,alto=25,ancho=400, size=conta, aux=20;  
              while(conta2<=conta){
                             Disco disco = new Disco(x,y,ancho,alto);
@@ -161,12 +164,30 @@ public class Ventana {
                             ancho-=aux;
                             size--;
                             conta2++;
-                        }  
+                        } 
+             int resultado = (int) Math.pow(2, conta);// para elevar una base dos a numero de discos 
+             pasos = new JLabel("Minimo de pasos: "+(resultado-1)); // se obtiene el numero de pasos para mover los discos a otra barra
+             pasos.setBounds(130, 125, 150, 30);
+             pasos.setForeground(Color.red);
+             panel4.add(pasos);
+             panel4.repaint();
                }
+             if(conta==0){
+                JOptionPane.showMessageDialog(null,"El numero de discos debe ser distinto de 0","Error",JOptionPane.ERROR_MESSAGE); 
+             }
+             if(conta<0){
+                JOptionPane.showMessageDialog(null,"El numero de discos debe mayor a 0","Error",JOptionPane.ERROR_MESSAGE); 
+ 
+             }
+                }//fin de la condicion. si ya se a iniciado el juego
+                else{
+                JOptionPane.showMessageDialog(null,"El juego esta en proceso","Error",JOptionPane.ERROR_MESSAGE);
+            }
+             //************
                 }
                 else{
-                ventana2.setVisible(true);
-            }
+                 JOptionPane.showMessageDialog(null,"Debe de Ingresar un cantidad de discos","Error",JOptionPane.ERROR_MESSAGE);    
+                }//}
             }
         });
         
@@ -175,38 +196,38 @@ public class Ventana {
         boton2_1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(pila1.vacia()!=true){
-                     Nodo nodo = new Nodo();
+                if(pila1.vacia()!=true){// la primera condicion es ver si la barra esta vacia 
+                        Nodo nodo = new Nodo();//se crea un nuevo nodo
                         int x, y, ancho, alto, size, numero_color;
-                        numero_color = pila1.getTope().getDisco().getNumero_color();
+                        numero_color = pila1.getTope().getDisco().getNumero_color(); // se pasa el numero de color de la cima una variable
                         
-                    if(pila2.vacia()){
-                        size = pila1.getTope().getSize();
-                        x = pila1.getTope().getDisco().getX();
-                        y = 475;
-                        ancho = pila1.getTope().getDisco().getAncho();
-                        alto = pila1.getTope().getDisco().getAlto();
+                    if(pila2.vacia()){ // esta condicion ve si la barra a la que queremos pasarle un disco esta vacia
+                        size = pila1.getTope().getSize(); // pasamos el tamano del disco a una variable
+                        x = pila1.getTope().getDisco().getX(); // pasamos la cordenada en x
+                        y = 475;// como esta condicione es de que la barra a la que pasamos esta vacia la posicion es y tendria que ser al final del panel.
+                        ancho = pila1.getTope().getDisco().getAncho();//pasamos el ancho a una variable
+                        alto = pila1.getTope().getDisco().getAlto();//pasamos el alto a una variable
                         
-                        Disco disco = new Disco(x,y,ancho,alto);
-                        disco.setNumero_color(numero_color);
-                        nodo.setSize(size);
-                        nodo.setDisco(disco);
-                        panel.remove(pila1.getTope().getDisco().getDisco());
-                        pila1.Desapilar();
-                        pila2.Insertar(nodo);
+                        Disco disco = new Disco(x,y,ancho,alto); // al nuevo disco le pasamos todos los atributos de la cima de la primera pila
+                        disco.setNumero_color(numero_color); // y le pasamos es numero de color para que tenga el mismo color que el de la cima
+                        nodo.setSize(size);//le ingresamos el mismo tamano del disco de la cima al nodo
+                        nodo.setDisco(disco);//ingresamos el disco al nodo
+                        panel.remove(pila1.getTope().getDisco().getDisco());//removemos el label disco del panel
+                        pila1.Desapilar();//desapilamos 
+                        pila2.Insertar(nodo);//insertamos el nuevo nodo en la pila que queremos mover el disco
                         
-                        panel2.add(disco.getDisco());
-                        panel2.add(barra2.getBarra());
-                        panel.repaint();
-                        panel2.repaint();
+                        panel2.add(disco.getDisco());//agregamos el disco al panel que queremos moverlo
+                        panel2.add(barra2.getBarra());//volvemos a ingresar la barra correspondiente al panel para que el disco se vea que esta enfrente de la barra
+                        panel.repaint();// volvemos a pintar el panel uno para que se vena los cambios
+                        panel2.repaint();// pintamos la el panel dos para que se vean los cambios que se hicieron en este.
                         
                     }
-                    else{
-                        int numero_discos = pila2.getSize();
-                        if(pila1.getTope().getSize()<pila2.getTope().getSize()){
+                    else{// si la barra a la que queremos mover no esta vacia 
+                        int numero_discos = pila2.getSize(); // ingresamos en una variable la contidad de discos que tiene la barra a la que queremos mover un disco
+                        if(pila1.getTope().getSize()<pila2.getTope().getSize()){// vemos si el disco que queremos mover el menor a la cima de la barra destino.
                         size = pila1.getTope().getSize();
                         x = pila1.getTope().getDisco().getX();
-                        y = 475-(25*numero_discos);
+                        y = 475-(25*numero_discos); // la posicion en "y" se obtiene de esta formula, que es multiplicar el alto de los discos por la cantidad de discos que tiene la barra destino y restarle 475 
                         ancho = pila1.getTope().getDisco().getAncho();
                         alto = pila1.getTope().getDisco().getAlto();
                         
@@ -263,7 +284,7 @@ public class Ventana {
                         
                     }
                     else{
-                        int numero_discos = pila2.getSize();
+                        int numero_discos = pila3.getSize();
                         if(pila1.getTope().getSize()<pila3.getTope().getSize()){
                         size = pila1.getTope().getSize();
                         x = pila1.getTope().getDisco().getX();
@@ -574,6 +595,8 @@ public class Ventana {
                     }
                 }
                 iniciar = false;
+                panel4.remove(pasos);
+                panel4.repaint();
             }
         });
     
