@@ -29,13 +29,27 @@ public class Ventana {
     private Pila pila2 =new Pila();
     private Pila pila3 =new Pila();
     private JTextField texto;
-    private JLabel txtB1, txtB2, txtB3, txt, pasos;
+    private JLabel txtB1, txtB2, txtB3, txt, pasos, txt_destino, tus_pasos, pasos1;
     private boolean iniciar=false;
-    
+    private int conta_pasos=0, opcion_des=0, discos_ingre=0;
+   // conta_pasos=0; llega el conteo de pasos realizado por el usuario, opcion_de
+    private String cadena = "Tus pasos: ";
     public Ventana(){
+        //combobox de destino
+        ComboBox combo = new ComboBox();
+        //************************
         reiniciar = new JButton("reiniciar");
         reiniciar.setBounds(740, 100, 100, 30);
-    
+        //etiqueta tus pasos;
+        tus_pasos = new JLabel();
+        tus_pasos.setBounds(50,200,90,30);
+        tus_pasos.setForeground(Color.BLUE);
+        tus_pasos.setText(cadena+conta_pasos);
+
+         // etiqueta destino...
+         txt_destino = new JLabel("Destino");
+         txt_destino.setBounds(130, 120, 70, 30);
+         txt_destino.setForeground(Color.WHITE);
         //boton instrucciones.
         instruccion = new JButton("Instrucciones");
         instruccion.setBounds(330, 100, 120, 30);
@@ -61,7 +75,7 @@ public class Ventana {
         //fin botones de barras 
         txt = new JLabel("Numero De Discos");
         txt.setForeground(Color.WHITE);
-        txt.setBounds(130, 90, 200, 30);
+        txt.setBounds(130, 80, 200, 30);
         
         txtB1 = new JLabel("Barra 1");
         txtB2 = new JLabel("Barra 2");
@@ -77,11 +91,11 @@ public class Ventana {
         inicio = new JButton("Jugar");
         inicio.setBounds(540, 100, 100, 30);//boton inicializar
         texto = new JTextField();
-        texto.setBounds(50,100,50,20);
+        texto.setBounds(50,85,50,20);
          
         
         ventana = new JFrame("Hanoi");
-        ventana.setSize(1200, 700);
+        ventana.setSize(1200, 800);
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.setLocationRelativeTo(null);
         ventana.setLayout(null);
@@ -106,7 +120,7 @@ public class Ventana {
         panel3.setVisible(true);
         
         panel4 = new JPanel();
-        panel4.setBounds(0,500,1200,200);
+        panel4.setBounds(0,500,1200,300);
         panel4.setBackground(Color.DARK_GRAY);
         panel4.setLayout(null);
         panel4.setVisible(true);
@@ -131,7 +145,20 @@ public class Ventana {
         panel4.add(boton2_3);
         panel4.add(reiniciar);
         panel4.add(instruccion);
-        // ACCIONES BOTON INSTRUCCIONES...
+        panel4.add(combo.getCombo());
+        panel4.add(txt_destino);
+        
+           
+        ventana.add(panel4);
+        ventana.add(panel3);
+        ventana.add(panel2);
+        ventana.add(panel);
+        ventana.setVisible(true);
+        
+    }
+    
+    public void Botones(){
+         // ACCIONES BOTON INSTRUCCIONES...
         instruccion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -167,10 +194,13 @@ public class Ventana {
                         } 
              int resultado = (int) Math.pow(2, conta);// para elevar una base dos a numero de discos 
              pasos = new JLabel("Minimo de pasos: "+(resultado-1)); // se obtiene el numero de pasos para mover los discos a otra barra
-             pasos.setBounds(130, 125, 150, 30);
+             pasos.setBounds(50, 170, 150, 30);
              pasos.setForeground(Color.red);
+             tus_pasos.setText(cadena+(conta_pasos));
+             panel4.add(tus_pasos);
              panel4.add(pasos);
              panel4.repaint();
+             discos_ingre = conta;
                }
              if(conta==0){
                 JOptionPane.showMessageDialog(null,"El numero de discos debe ser distinto de 0","Error",JOptionPane.ERROR_MESSAGE); 
@@ -221,6 +251,9 @@ public class Ventana {
                         panel.repaint();// volvemos a pintar el panel uno para que se vena los cambios
                         panel2.repaint();// pintamos la el panel dos para que se vean los cambios que se hicieron en este.
                         
+                        tus_pasos.setText(cadena+(conta_pasos+=1)); // aumentamos el contador de los pasos del usuario
+                        panel4.add(tus_pasos);
+                        panel4.repaint();
                     }
                     else{// si la barra a la que queremos mover no esta vacia 
                         int numero_discos = pila2.getSize(); // ingresamos en una variable la contidad de discos que tiene la barra a la que queremos mover un disco
@@ -243,15 +276,22 @@ public class Ventana {
                         panel2.add(barra2.getBarra());
                         panel.repaint();
                         panel2.repaint();
+                        
+                        tus_pasos.setText(cadena+(conta_pasos+=1)); // aumentamos el contador de los pasos del usuario
+                        panel4.add(tus_pasos);
+                        panel4.repaint();
                             
                         }
                     }
+                    
+                    
                 }
                 else{
                     System.out.println("vacia");
                 }
             }
         });
+        
         //FIN DEL BOTON...
         //boton mover a la barra 3 desde la barra 1 boton3_1...
         boton3_1.addActionListener(new ActionListener() {
@@ -282,6 +322,10 @@ public class Ventana {
                         panel.repaint();
                         panel3.repaint();
                         
+                        tus_pasos.setText(cadena+(conta_pasos+=1)); // aumentamos el contador de los pasos del usuario
+                        panel4.add(tus_pasos);
+                        panel4.repaint();
+                        
                     }
                     else{
                         int numero_discos = pila3.getSize();
@@ -304,6 +348,10 @@ public class Ventana {
                         panel3.add(barra3.getBarra());
                         panel.repaint();
                         panel3.repaint();
+                        
+                        tus_pasos.setText(cadena+(conta_pasos+=1)); // aumentamos el contador de los pasos del usuario
+                        panel4.add(tus_pasos);
+                        panel4.repaint();
                             
                         }
                     }
@@ -344,6 +392,10 @@ public class Ventana {
                         panel2.repaint();
                         panel.repaint();
                         
+                        tus_pasos.setText(cadena+(conta_pasos+=1)); // aumentamos el contador de los pasos del usuario
+                        panel4.add(tus_pasos);
+                        panel4.repaint();
+                        
                     }
                     else{
                         int numero_discos = pila1.getSize();
@@ -367,6 +419,10 @@ public class Ventana {
                         panel.add(barra.getBarra());
                         panel2.repaint();
                         panel.repaint();
+                        
+                        tus_pasos.setText(cadena+(conta_pasos+=1)); // aumentamos el contador de los pasos del usuario
+                        panel4.add(tus_pasos);
+                        panel4.repaint();
                             
                         }
                     }
@@ -405,6 +461,10 @@ public class Ventana {
                         panel2.repaint();
                         panel3.repaint();
                         
+                        tus_pasos.setText(cadena+(conta_pasos+=1)); // aumentamos el contador de los pasos del usuario
+                        panel4.add(tus_pasos);
+                        panel4.repaint();
+                        
                     }
                     else{
                         int numero_discos = pila3.getSize();
@@ -428,6 +488,10 @@ public class Ventana {
                         panel3.add(barra3.getBarra());
                         panel2.repaint();
                         panel3.repaint();
+                        
+                        tus_pasos.setText(cadena+(conta_pasos+=1)); // aumentamos el contador de los pasos del usuario
+                        panel4.add(tus_pasos);
+                        panel4.repaint();
                             
                         }
                     }
@@ -440,6 +504,7 @@ public class Ventana {
         //FIN DE LOS BOTONES DE LA BARRA 2.
         //ACCIONES DE LA BARRA 3...
         //boton para mover a la barra 1 desde la barra 3..
+        
         boton1_3.addActionListener(new ActionListener() {//boton para mover a la barra 1 desde la barra 2
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -468,6 +533,10 @@ public class Ventana {
                         panel3.repaint();
                         panel.repaint();
                         
+                        tus_pasos.setText(cadena+(conta_pasos+=1)); // aumentamos el contador de los pasos del usuario
+                        panel4.add(tus_pasos);
+                        panel4.repaint();
+                        
                     }
                     else{
                         int numero_discos = pila1.getSize();
@@ -491,6 +560,10 @@ public class Ventana {
                         panel.add(barra.getBarra());
                         panel3.repaint();
                         panel.repaint();
+                        
+                        tus_pasos.setText(cadena+(conta_pasos+=1)); // aumentamos el contador de los pasos del usuario
+                        panel4.add(tus_pasos);
+                        panel4.repaint();
                             
                         }
                     }
@@ -529,6 +602,9 @@ public class Ventana {
                         panel3.repaint();
                         panel2.repaint();
                         
+                        tus_pasos.setText(cadena+(conta_pasos+=1)); // aumentamos el contador de los pasos del usuario
+                        panel4.add(tus_pasos);
+                        panel4.repaint();
                     }
                     else{
                         int numero_discos = pila2.getSize();
@@ -552,6 +628,10 @@ public class Ventana {
                         panel2.add(barra2.getBarra());
                         panel3.repaint();
                         panel2.repaint();
+                        
+                        tus_pasos.setText(cadena+(conta_pasos+=1)); // aumentamos el contador de los pasos del usuario
+                        panel4.add(tus_pasos);
+                        panel4.repaint();
                             
                         }
                     }
@@ -594,18 +674,58 @@ public class Ventana {
                        aux = pila3.getTope();
                     }
                 }
+                if(iniciar==true){
                 iniciar = false;
-                panel4.remove(pasos);
-                panel4.repaint();
+                conta_pasos=0;//contador de pasos se reinicia...
+                panel4.remove(tus_pasos);//se quita el label del contador de los pasos del usuario del panel
+                panel4.remove(pasos);// se quita el label del numero de pasos minimos que debe hacer el usuario
+                panel4.repaint();// se pinta nuevamente el panel para ver los cambios
+                }
             }
         });
-    
-             
-        ventana.add(panel4);
-        ventana.add(panel3);
-        ventana.add(panel2);
-        ventana.add(panel);
-        ventana.setVisible(true);
-        
+       
     }
+    
+    
+    
+    
+    public void Riniciar(){
+         if(pila1.vacia()!=true){
+                    Nodo aux = pila1.getTope();
+                    while(aux!=null){
+                       panel.remove(aux.getDisco().getDisco());
+                       pila1.Desapilar();
+                       panel.repaint();
+                       aux = pila1.getTope();
+                    }
+                }
+                if(pila2.vacia()!=true){
+                    Nodo aux = pila2.getTope();
+                    while(aux!=null){
+                       panel2.remove(aux.getDisco().getDisco());
+                       pila2.Desapilar();
+                       panel2.repaint();
+                       aux = pila2.getTope();
+                    }
+                    
+                }
+                if(pila3.vacia()!=true){
+                    Nodo aux = pila3.getTope();
+                    while(aux!=null){
+                       panel3.remove(aux.getDisco().getDisco());
+                       pila3.Desapilar();
+                       panel3.repaint();
+                       aux = pila3.getTope();
+                    }
+                }
+                if(iniciar==true){
+                iniciar = false;
+                conta_pasos=0;//contador de pasos se reinicia...
+                panel4.remove(tus_pasos);//se quita el label del contador de los pasos del usuario del panel
+                panel4.remove(pasos);// se quita el label del numero de pasos minimos que debe hacer el usuario
+                panel4.repaint();// se pinta nuevamente el panel para ver los cambios
+                }
+    }
+    
+  
 }

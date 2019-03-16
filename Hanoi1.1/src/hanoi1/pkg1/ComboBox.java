@@ -15,14 +15,10 @@ public class ComboBox {
     private JComboBox combo;
       public ComboBox(){
         combo = new JComboBox();
-        combo.setBounds(50, 100, 70, 30);
-        int conta=1;
-        while(conta<=15){
-           
-            combo.addItem("");
-            conta++;
-        }
-       
+        combo.setBounds(50, 120, 70, 30);
+        
+            combo.addItem("Barra 2");
+            combo.addItem("Barra 3");
       }
 
     public JComboBox getCombo() {
