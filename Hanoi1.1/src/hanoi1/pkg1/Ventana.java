@@ -31,12 +31,12 @@ public class Ventana {
     private JTextField texto;
     private JLabel txtB1, txtB2, txtB3, txt, pasos, txt_destino, tus_pasos, pasos1;
     private boolean iniciar=false;
-    private int conta_pasos=0, opcion_des=0, discos_ingre=0;
-   // conta_pasos=0; llega el conteo de pasos realizado por el usuario, opcion_de
+    private int conta_pasos=0, opcion_des=0, discos_ingre=0, pasos_nes=0;
+   // conta_pasos=0; llega el conteo de pasos realizado por el usuario, opcion_des indica con un numero que pila se eligio como destino
+    private ComboBox combo = new ComboBox();
     private String cadena = "Tus pasos: ";
     public Ventana(){
-        //combobox de destino
-        ComboBox combo = new ComboBox();
+       
         //************************
         reiniciar = new JButton("reiniciar");
         reiniciar.setBounds(740, 100, 100, 30);
@@ -147,17 +147,7 @@ public class Ventana {
         panel4.add(instruccion);
         panel4.add(combo.getCombo());
         panel4.add(txt_destino);
-        
-           
-        ventana.add(panel4);
-        ventana.add(panel3);
-        ventana.add(panel2);
-        ventana.add(panel);
-        ventana.setVisible(true);
-        
-    }
-    
-    public void Botones(){
+        //inicio acciones de botones
          // ACCIONES BOTON INSTRUCCIONES...
         instruccion.addActionListener(new ActionListener() {
             @Override
@@ -193,14 +183,28 @@ public class Ventana {
                             conta2++;
                         } 
              int resultado = (int) Math.pow(2, conta);// para elevar una base dos a numero de discos 
+             pasos_nes = resultado-1; // se agrega en la variable los pasos necesarios para completar el juego...
              pasos = new JLabel("Minimo de pasos: "+(resultado-1)); // se obtiene el numero de pasos para mover los discos a otra barra
              pasos.setBounds(50, 170, 150, 30);
              pasos.setForeground(Color.red);
              tus_pasos.setText(cadena+(conta_pasos));
+             combo.getCombo().setEnabled(false);//desactivamos el combobox
              panel4.add(tus_pasos);
              panel4.add(pasos);
              panel4.repaint();
-             discos_ingre = conta;
+             if(combo.getCombo().getItemAt(combo.getCombo().getSelectedIndex())=="Barra 2"){
+              discos_ingre = conta;   
+              opcion_des = 2;
+              System.out.println(conta+"-"+opcion_des);
+             }
+             else{
+               discos_ingre = conta;   
+              opcion_des = 3;
+              System.out.println(conta+"-"+opcion_des);
+             }
+             
+             
+             
                }
              if(conta==0){
                 JOptionPane.showMessageDialog(null,"El numero de discos debe ser distinto de 0","Error",JOptionPane.ERROR_MESSAGE); 
@@ -282,9 +286,11 @@ public class Ventana {
                         panel4.repaint();
                             
                         }
+                       
+                         
                     }
-                    
-                    
+                  
+                   Evaluar_barra(discos_ingre);// ver si la barra destino ya se lleno...
                 }
                 else{
                     System.out.println("vacia");
@@ -354,7 +360,9 @@ public class Ventana {
                         panel4.repaint();
                             
                         }
+                         
                     }
+                     Evaluar_barra(discos_ingre);// ver si la barra destino ya se lleno...
                 }
                 else{
                     System.out.println("vacia");
@@ -399,7 +407,7 @@ public class Ventana {
                     }
                     else{
                         int numero_discos = pila1.getSize();
-                        System.out.println(numero_discos);
+                  
                         if(pila2.getTope().getSize()<pila1.getTope().getSize()){
                           size = pila2.getTope().getSize();
                         x = pila2.getTope().getDisco().getX();
@@ -425,7 +433,9 @@ public class Ventana {
                         panel4.repaint();
                             
                         }
+                         
                     }
+                     Evaluar_barra(discos_ingre);// ver si la barra destino ya se lleno...
                 }
                 else{
                     System.out.println("vacia");
@@ -468,7 +478,7 @@ public class Ventana {
                     }
                     else{
                         int numero_discos = pila3.getSize();
-                        System.out.println(numero_discos);
+                        
                         if(pila2.getTope().getSize()<pila3.getTope().getSize()){
                           size = pila2.getTope().getSize();
                         x = pila2.getTope().getDisco().getX();
@@ -494,7 +504,9 @@ public class Ventana {
                         panel4.repaint();
                             
                         }
+                         
                     }
+                    Evaluar_barra(discos_ingre);// ver si la barra destino ya se lleno...
                 }
                 else{
                     System.out.println("vacia");
@@ -540,7 +552,7 @@ public class Ventana {
                     }
                     else{
                         int numero_discos = pila1.getSize();
-                        System.out.println(numero_discos);
+                      
                         if(pila3.getTope().getSize()<pila1.getTope().getSize()){
                          size = pila3.getTope().getSize();
                         x = pila3.getTope().getDisco().getX();
@@ -567,6 +579,7 @@ public class Ventana {
                             
                         }
                     }
+                     Evaluar_barra(discos_ingre);// ver si la barra destino ya se lleno...
                 }
                 else{
                     System.out.println("vacia");
@@ -607,8 +620,8 @@ public class Ventana {
                         panel4.repaint();
                     }
                     else{
-                        int numero_discos = pila2.getSize();
-                        System.out.println(numero_discos);
+                        int numero_discos = pila2.getSize();// se ve cuantos discos tiene la barra a la que queremos mover el disco de la barra origen.
+                     
                         if(pila3.getTope().getSize()<pila2.getTope().getSize()){
                         size = pila3.getTope().getSize();
                         x = pila3.getTope().getDisco().getX();
@@ -635,6 +648,7 @@ public class Ventana {
                             
                         }
                     }
+                     Evaluar_barra(discos_ingre);// ver si la barra destino ya se lleno...
                 }
                 else{
                     System.out.println("vacia");
@@ -646,51 +660,36 @@ public class Ventana {
         reiniciar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(pila1.vacia()!=true){
-                    Nodo aux = pila1.getTope();
-                    while(aux!=null){
-                       panel.remove(aux.getDisco().getDisco());
-                       pila1.Desapilar();
-                       panel.repaint();
-                       aux = pila1.getTope();
-                    }
-                }
-                if(pila2.vacia()!=true){
-                    Nodo aux = pila2.getTope();
-                    while(aux!=null){
-                       panel2.remove(aux.getDisco().getDisco());
-                       pila2.Desapilar();
-                       panel2.repaint();
-                       aux = pila2.getTope();
-                    }
-                    
-                }
-                if(pila3.vacia()!=true){
-                    Nodo aux = pila3.getTope();
-                    while(aux!=null){
-                       panel3.remove(aux.getDisco().getDisco());
-                       pila3.Desapilar();
-                       panel3.repaint();
-                       aux = pila3.getTope();
-                    }
-                }
-                if(iniciar==true){
-                iniciar = false;
-                conta_pasos=0;//contador de pasos se reinicia...
-                panel4.remove(tus_pasos);//se quita el label del contador de los pasos del usuario del panel
-                panel4.remove(pasos);// se quita el label del numero de pasos minimos que debe hacer el usuario
-                panel4.repaint();// se pinta nuevamente el panel para ver los cambios
-                }
+               Reiniciar();
             }
         });
        
+        
+           //fin accione de botones */*/*/*/*/*/*/*/*/*
+        ventana.add(panel4);
+        ventana.add(panel3);
+        ventana.add(panel2);
+        ventana.add(panel);
+        ventana.setVisible(true);
+        
     }
     
     
+   private void Evaluar_barra(int discos){
+       if(pila2.getSize()==discos&&opcion_des==2){
+           JOptionPane.showMessageDialog(ventana,"Pasos a realizar: "+pasos_nes+"\n Pasos realizados: "+conta_pasos+"\n Pasos de mas: "+(conta_pasos-pasos_nes),"Fin  Del Juego",JOptionPane.INFORMATION_MESSAGE);
+           Reiniciar();
+       }
+       if(pila3.getSize()==discos&&opcion_des==3){
+           JOptionPane.showMessageDialog(ventana,"Pasos a realizar: "+pasos_nes+"\n Pasos realizados: "+conta_pasos+"\n Pasos de mas: "+(conta_pasos-pasos_nes),"Fin  Del Juego",JOptionPane.INFORMATION_MESSAGE);
+           Reiniciar();
+       }
+      
+   }
+  
     
-    
-    public void Riniciar(){
-         if(pila1.vacia()!=true){
+   private void Reiniciar(){
+           if(pila1.vacia()!=true){
                     Nodo aux = pila1.getTope();
                     while(aux!=null){
                        panel.remove(aux.getDisco().getDisco());
@@ -721,11 +720,16 @@ public class Ventana {
                 if(iniciar==true){
                 iniciar = false;
                 conta_pasos=0;//contador de pasos se reinicia...
+                pasos_nes=0;
+                opcion_des=0;
+                combo.getCombo().setEnabled(true);//activabos el combobox
                 panel4.remove(tus_pasos);//se quita el label del contador de los pasos del usuario del panel
                 panel4.remove(pasos);// se quita el label del numero de pasos minimos que debe hacer el usuario
                 panel4.repaint();// se pinta nuevamente el panel para ver los cambios
                 }
-    }
+            }//find de reiniciar
+   } 
+    
     
   
-}
+
