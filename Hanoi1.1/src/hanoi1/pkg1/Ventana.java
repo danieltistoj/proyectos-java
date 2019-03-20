@@ -33,7 +33,7 @@ public class Ventana {
     private Pila pila2 =new Pila();
     private Pila pila3 =new Pila();
     private JTextField texto;
-    private JLabel txtB1, txtB2, txtB3, txt, pasos, txt_destino, tus_pasos, pasos1;
+    private JLabel txtB1, txtB2, txtB3, txt, pasos, txt_destino, tus_pasos, pasos1,resolucion_txt;
     private boolean iniciar=false;
     private int conta_pasos=0, opcion_des=0, discos_ingre=0, pasos_nes=0,auxiliar, destino;
     private JScrollPane scrollLista;
@@ -43,6 +43,10 @@ public class Ventana {
     private ComboBox combo = new ComboBox();
     private String cadena = "Tus pasos: ";
     public Ventana(){
+        //inicializar label de resolucion
+        resolucion_txt = new JLabel("Resolucion Del Juego");
+        resolucion_txt.setBounds(985,120,150,30);
+        resolucion_txt.setForeground(Color.WHITE);
         //inicializar la lista pasos*
          listaPasos = new JList();
         listaPasos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION );
@@ -169,6 +173,7 @@ public class Ventana {
         panel4.add(txt_destino);
         panel4.add(resolver);
         panel4.add(scrollLista);
+        panel4.add(resolucion_txt);
         //inicio acciones de botones
          // ACCIONES BOTON INSTRUCCIONES...
         instruccion.addActionListener(new ActionListener() {
@@ -771,7 +776,7 @@ public class Ventana {
                 }
             }//find de reiniciar
     
-   private void Solucion(int num_dis, int origen, int destino, int axiliar){
+   private void Solucion(int num_dis, int origen, int destino, int auxiliar){
        if(num_dis==1){
            modelo.addElement("Mover de la barra "+origen+" a la barra "+destino);
        }
