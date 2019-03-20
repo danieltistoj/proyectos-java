@@ -8,6 +8,7 @@ package hanoi1.pkg1;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -15,14 +16,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JDialog;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
 
 public class Ventana {
  
     private JFrame ventana;
     private JPanel panel, panel2, panel3, panel4;
-    private JButton boton2_1, boton3_1,boton1_2,boton3_2,boton1_3,boton2_3,inicio,reiniciar,aceptar, instruccion;
+    private JButton boton2_1, boton3_1,boton1_2,boton3_2,boton1_3,boton2_3,inicio,reiniciar,aceptar, instruccion, resolver;
     private Barra barra, barra2, barra3;
     
     private Pila pila1 =new Pila();
@@ -31,12 +35,28 @@ public class Ventana {
     private JTextField texto;
     private JLabel txtB1, txtB2, txtB3, txt, pasos, txt_destino, tus_pasos, pasos1;
     private boolean iniciar=false;
-    private int conta_pasos=0, opcion_des=0, discos_ingre=0, pasos_nes=0;
+    private int conta_pasos=0, opcion_des=0, discos_ingre=0, pasos_nes=0,auxiliar, destino;
+    private JScrollPane scrollLista;
+    private DefaultListModel modelo;//declaramos el Modelo
+    private JList listaPasos;
    // conta_pasos=0; llega el conteo de pasos realizado por el usuario, opcion_des indica con un numero que pila se eligio como destino
     private ComboBox combo = new ComboBox();
     private String cadena = "Tus pasos: ";
     public Ventana(){
-       
+        //inicializar la lista pasos*
+         listaPasos = new JList();
+        listaPasos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION );
+        //inicializar scroll*
+        scrollLista = new JScrollPane();//es para hacer una barra que pueda bajar para hacer y ver la lista completa...
+        scrollLista.setBounds(950, 150,200, 80);
+        scrollLista.setViewportView(listaPasos);  
+        //inicializar el modelo
+        modelo = new DefaultListModel();
+        
+ //*************//////************************////******************************||||||       
+        //boton resolucion.........
+        resolver = new JButton("Resolver");
+        resolver.setBounds(540,200, 100, 30);
         //************************
         reiniciar = new JButton("reiniciar");
         reiniciar.setBounds(740, 100, 100, 30);
@@ -147,6 +167,8 @@ public class Ventana {
         panel4.add(instruccion);
         panel4.add(combo.getCombo());
         panel4.add(txt_destino);
+        panel4.add(resolver);
+        panel4.add(scrollLista);
         //inicio acciones de botones
          // ACCIONES BOTON INSTRUCCIONES...
         instruccion.addActionListener(new ActionListener() {
@@ -193,12 +215,16 @@ public class Ventana {
              panel4.add(pasos);
              panel4.repaint();
              if(combo.getCombo().getItemAt(combo.getCombo().getSelectedIndex())=="Barra 2"){
+              auxiliar = 3;
+              destino = 2;
               discos_ingre = conta;   
               opcion_des = 2;
               System.out.println(conta+"-"+opcion_des);
              }
              else{
-               discos_ingre = conta;   
+              auxiliar = 2;
+              destino = 3;
+              discos_ingre = conta;   
               opcion_des = 3;
               System.out.println(conta+"-"+opcion_des);
              }
@@ -663,7 +689,22 @@ public class Ventana {
                Reiniciar();
             }
         });
-       
+        //BOTON RESOLVER EL JUEGO................................
+        resolver.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(iniciar==false){
+                   JOptionPane.showMessageDialog(ventana,"El juego no se ha iniciado","Resolver",JOptionPane.ERROR_MESSAGE); 
+                }
+                else{
+                    Solucion(discos_ingre,1,destino,auxiliar);
+                    listaPasos.setModel(modelo);
+                    panel4.repaint();
+                }
+            
+            }
+        });
+       //fin resolver juego
         
            //fin accione de botones */*/*/*/*/*/*/*/*/*
         ventana.add(panel4);
@@ -718,6 +759,7 @@ public class Ventana {
                     }
                 }
                 if(iniciar==true){
+                modelo.clear();//se limpia la lista de los pasos para resolver la torre.
                 iniciar = false;
                 conta_pasos=0;//contador de pasos se reinicia...
                 pasos_nes=0;
@@ -728,6 +770,19 @@ public class Ventana {
                 panel4.repaint();// se pinta nuevamente el panel para ver los cambios
                 }
             }//find de reiniciar
+    
+   private void Solucion(int num_dis, int origen, int destino, int axiliar){
+       if(num_dis==1){
+           modelo.addElement("Mover de la barra "+origen+" a la barra "+destino);
+       }
+       else{
+           Solucion(num_dis-1, origen,auxiliar,destino);
+            modelo.addElement("Mover de la barra "+origen+" a la barra "+destino);
+            Solucion(num_dis-1,auxiliar,destino,origen);
+       }
+   }
+         
+     
    } 
     
     
