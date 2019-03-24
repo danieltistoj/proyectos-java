@@ -48,7 +48,7 @@ public class Ventana {
         resolucion_txt.setBounds(985,120,150,30);
         resolucion_txt.setForeground(Color.WHITE);
         //inicializar la lista pasos*
-         listaPasos = new JList();
+        listaPasos = new JList();
         listaPasos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION );
         //inicializar scroll*
         scrollLista = new JScrollPane();//es para hacer una barra que pueda bajar para hacer y ver la lista completa...
