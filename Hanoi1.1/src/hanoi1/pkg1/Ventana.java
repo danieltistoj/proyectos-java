@@ -35,7 +35,7 @@ public class Ventana {
     private JTextField texto;
     private JLabel txtB1, txtB2, txtB3, txt, pasos, txt_destino, tus_pasos, pasos1,resolucion_txt;
     private boolean iniciar=false;
-    private int conta_pasos=0, opcion_des=0, discos_ingre=0, pasos_nes=0,auxiliar, destino;
+    private int conta_pasos=0, opcion_des=0, discos_ingre=0, pasos_nes=0,auxiliar;
     private JScrollPane scrollLista;
     private DefaultListModel modelo;//declaramos el Modelo
     private JList listaPasos;
@@ -221,14 +221,12 @@ public class Ventana {
              panel4.repaint();
              if(combo.getCombo().getItemAt(combo.getCombo().getSelectedIndex())=="Barra 2"){
               auxiliar = 3;
-              destino = 2;
               discos_ingre = conta;   
               opcion_des = 2;
               System.out.println(conta+"-"+opcion_des);
              }
              else{
               auxiliar = 2;
-              destino = 3;
               discos_ingre = conta;   
               opcion_des = 3;
               System.out.println(conta+"-"+opcion_des);
@@ -702,7 +700,7 @@ public class Ventana {
                    JOptionPane.showMessageDialog(ventana,"El juego no se ha iniciado","Resolver",JOptionPane.ERROR_MESSAGE); 
                 }
                 else{
-                    Solucion(discos_ingre,1,destino,auxiliar);
+                    Solucion(discos_ingre,1,opcion_des,auxiliar);
                     listaPasos.setModel(modelo);
                     panel4.repaint();
                 }
@@ -767,8 +765,6 @@ public class Ventana {
                 modelo.clear();//se limpia la lista de los pasos para resolver la torre.
                 iniciar = false;
                 conta_pasos=0;//contador de pasos se reinicia...
-                pasos_nes=0;
-                opcion_des=0;
                 combo.getCombo().setEnabled(true);//activabos el combobox
                 panel4.remove(tus_pasos);//se quita el label del contador de los pasos del usuario del panel
                 panel4.remove(pasos);// se quita el label del numero de pasos minimos que debe hacer el usuario
