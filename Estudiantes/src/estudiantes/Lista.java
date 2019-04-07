@@ -30,6 +30,7 @@ public class Lista {
            nuevo.setAnterior(null);
            tope = nuevo;
         }
+        size++;
     }
     
     public void Inst_Fondo(Estudiante nuevo){
@@ -51,14 +52,15 @@ public class Lista {
             nuevo.setSiguiente(null);
             fondo = nuevo;
         }
+        size++;
     }
     
-     public Estudiante Buscar(int dato){
+     public Estudiante Buscar(int carnet){
         Estudiante aux = tope, nodo=null;
         
         boolean existe=false;
         while(aux!=null){
-            if(dato==aux.getCarnet()){
+            if(carnet==aux.getCarnet()){
                 nodo=aux;
             }
             aux = aux.getSiguiente();
@@ -66,6 +68,45 @@ public class Lista {
         return nodo;
         
     }
+     
+     
+      public void Eliminar(int dato){
+        if(size==1){
+            tope=null;
+            fondo=null;
+        }
+        else{
+        if(dato==tope.getCarnet()){
+            Estudiante aux = tope;
+            tope = aux.getSiguiente();
+            aux=null;
+            
+        }
+        if(dato==fondo.getCarnet()){
+            Estudiante aux = fondo;
+            fondo = aux.getAnterior();
+            fondo.setSiguiente(null);
+            aux = null;    
+           
+        }
+        if(dato!=fondo.getCarnet()&&dato!=tope.getCarnet()){
+            Estudiante aux = tope;
+            while(aux.getSiguiente()!=null){
+                if(dato==aux.getCarnet()){
+                    Estudiante anterior = aux.getAnterior();
+                    anterior.setSiguiente(aux.getSiguiente());
+                    aux = null;
+                    break;
+                }
+                aux = aux.getSiguiente();
+            }
+        }
+        }
+        size--;
+        
+    }
+     
+     
     
     public Estudiante tope(){
         return tope;

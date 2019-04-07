@@ -120,6 +120,7 @@ public class Ventana {
                  
              }
              else{
+     
             
               int edad1 = Integer.parseInt(edad);
               int carnet1 = Integer.parseInt(carnet);
@@ -230,7 +231,37 @@ public class Ventana {
  
                 }
                 else{
-                    
+                String carnet = JOptionPane.showInputDialog(null, "Ingrese el carnet");
+                int carnet1 = Integer.parseInt(carnet);
+                Estudiante aux = lista.Buscar(carnet1);
+                if(aux==null){
+                    JOptionPane.showMessageDialog(null,"El estudiante no existe","Advertencia",JOptionPane.WARNING_MESSAGE); 
+
+                }
+                else{
+                    if(lista.getSize()==1){
+                        nombre1.setText("Nombre");
+                        apellido1.setText("Apellido");
+                        sexo.setText("Sexo");
+                        edad2.setText("Edad");
+                        carnet2.setText("Carnet");
+                        panel.remove(aux.getFoto().getImagen());
+                        panel.repaint();
+                        lista.Eliminar(carnet1);
+                    }
+                    else{
+                        if(auxiliar.getCarnet()==carnet1){
+                        Anterio_Siguiente(aux);
+                        lista.Eliminar(carnet1);
+                        }
+                        else{
+                           lista.Eliminar(carnet1);  
+                        }
+                        
+                        
+                    }
+                   
+                }
                     
                 }
             }
@@ -242,5 +273,32 @@ public class Ventana {
         ventana.add(panel_1);
         ventana.add(panel);
         ventana.setVisible(true);   
+    }
+    
+    public void Anterio_Siguiente(Estudiante aux){
+        if(aux.getSiguiente()!=null){
+              panel.remove(auxiliar.getFoto().getImagen());
+              auxiliar = auxiliar.getSiguiente();    
+              nombre1.setText("Nombre: "+auxiliar.getNombre());
+              apellido1.setText("Apellido: "+auxiliar.getApellido());
+              sexo.setText("Sexo: "+auxiliar.getSexo());
+              edad2.setText("Edad: "+auxiliar.getEdad());
+              carnet2.setText("Carnet: "+auxiliar.getCarnet());
+              panel.add(auxiliar.getFoto().getImagen());
+              panel.repaint();
+        }
+        else{
+              panel.remove(auxiliar.getFoto().getImagen());
+              auxiliar = auxiliar.getAnterior();        
+              nombre1.setText("Nombre: "+auxiliar.getNombre());
+              apellido1.setText("Apellido: "+auxiliar.getApellido());
+              sexo.setText("Sexo: "+auxiliar.getSexo());
+              edad2.setText("Edad: "+auxiliar.getEdad());
+              carnet2.setText("Carnet: "+auxiliar.getCarnet());
+              panel.add(auxiliar.getFoto().getImagen());
+              panel.repaint();
+            
+        }
+        
     }
 }
