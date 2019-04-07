@@ -32,6 +32,41 @@ public class Lista {
         }
     }
     
+    public void Inst_Fondo(Estudiante nuevo){
+        if(Vacia()){
+            tope = nuevo;
+            fondo = nuevo;
+            
+            tope.setAnterior(null);
+            tope.setSiguiente(null);
+            
+            fondo.setAnterior(null);
+            fondo.setSiguiente(null);
+            
+        }
+        else{
+            Estudiante fin = fondo;
+            fin.setSiguiente(nuevo);
+            nuevo.setAnterior(fin);
+            nuevo.setSiguiente(null);
+            fondo = nuevo;
+        }
+    }
+    
+     public Estudiante Buscar(int dato){
+        Estudiante aux = tope, nodo=null;
+        
+        boolean existe=false;
+        while(aux!=null){
+            if(dato==aux.getCarnet()){
+                nodo=aux;
+            }
+            aux = aux.getSiguiente();
+        }
+        return nodo;
+        
+    }
+    
     public Estudiante tope(){
         return tope;
     }

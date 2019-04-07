@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -19,21 +20,36 @@ import javax.swing.JPanel;
  */
 public class Ventana {
     private JFrame ventana;
-    private JButton ant, sig, ins, rec, busc, crear;
+    private JLabel nombre1, apellido1, edad2, carnet2, sexo;
+    private JButton ant, sig, ins, rec, busc, eliminar;
     private JPanel panel, panel_1, panel_2;
-    private Lista lista;
-    private boolean creada=false;
+    private Lista lista = new Lista();
+    private Estudiante auxiliar;
+   
     
     public Ventana(){
         
-        crear = new JButton("Crear");
-        crear.setBounds(185, 190, 90, 30);
+        nombre1 = new JLabel("Nombre");
+        apellido1 = new JLabel("Apellido");
+        sexo = new JLabel("Sexo");
+        edad2 = new JLabel("Edad");
+        carnet2 = new JLabel("Carnet");
         
+        nombre1.setBounds(0, 0, 100, 50);
+        apellido1.setBounds(0, 50, 100, 50);
+        sexo.setBounds(0, 100, 100, 50);
+        edad2.setBounds(0, 150, 100, 50);
+        carnet2.setBounds(0, 200, 100, 50);
+        
+        
+        
+        
+        eliminar = new JButton("Eliminar");
+        eliminar.setBounds(185, 120, 90, 30);
+        
+       
         busc = new JButton("Buscar");
-        busc.setBounds(185, 120, 90, 30);
-        
-        rec = new JButton("Recorrer");
-        rec.setBounds(185, 70, 90, 30);
+        busc.setBounds(185, 70, 90, 30);
         
         ins = new JButton("Insertar");
         ins.setBounds(185, 20, 90, 30);
@@ -49,6 +65,11 @@ public class Ventana {
         panel.setBackground(Color.WHITE);
         panel.setLayout(null);
         panel.setVisible(true);
+        panel.add(nombre1);
+        panel.add(apellido1);
+        panel.add(edad2);
+        panel.add(carnet2);
+        panel.add(sexo);
         
         panel_1 = new JPanel();
         panel_1.setBounds(20, 320, 450, 30);
@@ -57,6 +78,7 @@ public class Ventana {
         panel_1.setVisible(true);
         panel_1.add(ant);
         panel_1.add(sig);
+       
         
            
         panel_2 = new JPanel();
@@ -65,9 +87,8 @@ public class Ventana {
         panel_2.setLayout(null);
         panel_2.setVisible(true);
         panel_2.add(ins);
-        panel_2.add(rec);
         panel_2.add(busc);
-        panel_2.add(crear);
+        panel_2.add(eliminar);
        
         ventana = new JFrame(); 
         ventana = new JFrame("Lista De Estudiantes");
@@ -77,70 +98,143 @@ public class Ventana {
         ventana.setLayout(null);
         ventana.setResizable(false);
         
-        crear.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(creada){
-                    JOptionPane.showMessageDialog(null,"Ya se a creado una lista","Error",JOptionPane.ERROR_MESSAGE); 
-                }
-                else
-                {
-                  lista = new Lista();
-                  JOptionPane.showMessageDialog(null,"Se a creado una lista","Mensaje",JOptionPane.INFORMATION_MESSAGE); 
-                  creada = true;
-                }
-                
-            }
-        });
+
         
         ins.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               if(creada){
-                   JOptionPane.showMessageDialog(null,"El numero de discos debe ser distinto de 0","Error",JOptionPane.ERROR_MESSAGE); 
-               }
-               else{
-                   JOptionPane.showMessageDialog(null,"Cree antes una lista","Error",JOptionPane.ERROR_MESSAGE); 
-               }
+                
+                 String[] Sexo = {
+            "Hombre",
+            "Mujer"
+           
+        };
+              String nombre = JOptionPane.showInputDialog(null, "Ingrese el nombre");
+              String apellido = JOptionPane.showInputDialog(null, "Ingrese el apellido");
+              String sexo1 = (String) JOptionPane.showInputDialog(null, "Seleccione una carrera a cursar", "Carrera", JOptionPane.DEFAULT_OPTION,null, Sexo, null);//es para dar multiples opciones
+              String edad = JOptionPane.showInputDialog(null, "Ingrese la edad");
+              String carnet = JOptionPane.showInputDialog(null, "Ingrese el carnet");
+                  
+             if(nombre==null||apellido==null||edad==null||carnet==null){
+                  JOptionPane.showMessageDialog(null,"No ingreso algun dato"+"\n"+"Intente de nuevo","Error",JOptionPane.ERROR_MESSAGE); 
+                 
+             }
+             else{
+            
+              int edad1 = Integer.parseInt(edad);
+              int carnet1 = Integer.parseInt(carnet);
+              
+              Foto foto = new Foto(sexo1);
+              Estudiante estudiante = new Estudiante();
+              estudiante.setFoto(foto);
+              estudiante.setNombre(nombre);
+              estudiante.setApellido(apellido);
+              estudiante.setSexo(sexo1);
+              estudiante.setEdad(edad1);
+              estudiante.setCarnet(carnet1); 
+              lista.Inst_Fondo(estudiante);
+              
+              JOptionPane.showMessageDialog(null,"Se ha ingresado al estudiante: "+estudiante.getNombre()+" "+estudiante.getApellido(),"Mensaje",JOptionPane.INFORMATION_MESSAGE); 
+              nombre1.setText("Nombre: "+lista.getTope().getNombre());
+              sexo.setText("Sexo: "+lista.getTope().getSexo());
+              apellido1.setText("Apellido: "+lista.getTope().getApellido());
+              edad2.setText("Edad: "+lista.getTope().getEdad());
+              carnet2.setText("Carnet: "+lista.getTope().getCarnet());
+               
+              auxiliar = lista.getTope();
+              panel.add(auxiliar.getFoto().getImagen());
+              panel.repaint();        
+           }
+              
             }
         });
+        
+        sig.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(lista.Vacia()){
+                JOptionPane.showMessageDialog(null,"La lista esta vacia","Error",JOptionPane.ERROR_MESSAGE); 
+            }
+                else{
+                    
+               if(auxiliar.getSiguiente()!=null){
+               panel.remove(auxiliar.getFoto().getImagen());
+               auxiliar = auxiliar.getSiguiente();
+                    
+              nombre1.setText("Nombre: "+auxiliar.getNombre());
+              apellido1.setText("Apellido: "+auxiliar.getApellido());
+              sexo.setText("Sexo: "+auxiliar.getSexo());
+              edad2.setText("Edad: "+auxiliar.getEdad());
+              carnet2.setText("Carnet: "+auxiliar.getCarnet());
+              panel.add(auxiliar.getFoto().getImagen());
+              panel.repaint();
+               
+               } 
+                    
+                }
+            }
+        });
+        
+        
+        
+        ant.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(lista.Vacia()){
+              JOptionPane.showMessageDialog(null,"La lista esta vacia","Error",JOptionPane.ERROR_MESSAGE); 
+                }
+                else{
+                     if(auxiliar.getAnterior()!=null){
+               panel.remove(auxiliar.getFoto().getImagen());     
+               auxiliar = auxiliar.getAnterior();
+                    
+              nombre1.setText("Nombre: "+auxiliar.getNombre());
+              apellido1.setText("Apellido: "+auxiliar.getApellido());
+              sexo.setText("Sexo: "+auxiliar.getSexo());
+              edad2.setText("Edad: "+auxiliar.getEdad());
+              carnet2.setText("Carnet: "+auxiliar.getCarnet());
+              panel.add(auxiliar.getFoto().getImagen());
+              panel.repaint();
+                    
+                }
+                }
+               
+            }
+        });
+        
         
         busc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(creada){
-                    if(lista.Vacia()){
-                        JOptionPane.showMessageDialog(null,"La lista esta vacia","Error",JOptionPane.ERROR_MESSAGE); 
-                    }
-                    else{
-                        
-                    }
-                    
+                if(lista.Vacia()){
+                    JOptionPane.showMessageDialog(null,"La lista esta vacia","Error",JOptionPane.ERROR_MESSAGE); 
                 }
                 else{
-                   JOptionPane.showMessageDialog(null,"Cree antes una lista","Error",JOptionPane.ERROR_MESSAGE);  
+
+                   String carnet = JOptionPane.showInputDialog(null, "Escriba el carnet");
+                   int carnet1 = Integer.parseInt(carnet);
+                   Estudiante aux = lista.Buscar(carnet1);
+                   JOptionPane.showMessageDialog(null, "1) Nombre: "+aux.getNombre()+"\n"+"2) Apellido: "+aux.getApellido()+"\n"+"3) Edad: "+aux.getEdad()+"\n"+"4) Carnet: "+aux.getCarnet(),"Estudiante",JOptionPane.INFORMATION_MESSAGE);
+               
+
                 }
             }
         });
         
-        rec.addActionListener(new ActionListener() {
+       
+        eliminar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(creada){
-                    if(lista.Vacia()){
-                        JOptionPane.showMessageDialog(null,"La lista esta vacia","Error",JOptionPane.ERROR_MESSAGE); 
-                    }
-                    else{
-                        
-                    }
-                    
+                if(lista.Vacia()){
+                   JOptionPane.showMessageDialog(null,"La lista esta vacia","Error",JOptionPane.ERROR_MESSAGE); 
+ 
                 }
                 else{
-                   JOptionPane.showMessageDialog(null,"Cree antes una lista","Error",JOptionPane.ERROR_MESSAGE);  
+                    
+                    
                 }
             }
         });
-        
         
         
         

@@ -11,8 +11,26 @@ package estudiantes;
  */
 public class Estudiante {
    private int edad, carnet;
-   private String nombre, apellido;
+   private String nombre, apellido, sexo;
    private Estudiante siguiente, anterior;
+   private Foto foto;
+
+    public Foto getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Foto foto) {
+        this.foto = foto;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+   
 
     public int getEdad() {
         return edad;
