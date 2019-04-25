@@ -144,7 +144,8 @@ public class Ventana {
             String text4 = numero.getText();
             int numero2 = Integer.parseInt(text4);
             
-            Imagen nueva_img = new Imagen(text1,panel_cargar.getWidth(),panel_cargar.getHeight());
+            Imagen nueva_img = new Imagen(text1);
+              
             Nodo nuevo_nodo = new Nodo();
             nuevo_nodo.setUrl(text1);
             nuevo_nodo.setNombre(text2);
@@ -155,10 +156,8 @@ public class Ventana {
             
                if(lista.getSize()==1){
                 auxiliar = lista.getTope();   
-                panel_img.add(lista.getTope().getClase_img().getImagen());
-                nombre2.setText("Nombre: "+auxiliar.getNombre());
-                numero_2.setText("Numero: "+auxiliar.getNumero());
-                size_2.setText("Size: "+auxiliar.getSize());
+                panel_img.add(lista.getTope().getClase_img().getLabel());
+                Datos(auxiliar);
                 informacion.repaint();
                 panel_img.repaint();
        
@@ -174,10 +173,10 @@ public class Ventana {
             public void actionPerformed(ActionEvent e) {
                 if(Inicio){
                     if(auxiliar.getSig()!=null){
-                    panel_img.remove(auxiliar.getClase_img().getImagen());
+                    panel_img.remove(auxiliar.getClase_img().getLabel());
                     auxiliar = auxiliar.getSig();
                     Datos(auxiliar);
-                    panel_img.add(auxiliar.getClase_img().getImagen());
+                    panel_img.add(auxiliar.getClase_img().getLabel());
                     panel_img.repaint();
                     }
                 }
@@ -190,10 +189,10 @@ public class Ventana {
             public void actionPerformed(ActionEvent e) {
                 if(Inicio){
                     if(auxiliar.getAnt()!=null){
-                    panel_img.remove(auxiliar.getClase_img().getImagen());
+                    panel_img.remove(auxiliar.getClase_img().getLabel());
                     auxiliar = auxiliar.getAnt();
                     Datos(auxiliar);
-                    panel_img.add(auxiliar.getClase_img().getImagen());
+                    panel_img.add(auxiliar.getClase_img().getLabel());
                     panel_img.repaint();
                     }
                 }
@@ -209,10 +208,7 @@ public class Ventana {
                 else{
                     lista.Ordenar();
                     auxiliar = lista.getTope();
-                    
-                    nombre2.setText("Nombre: "+auxiliar.getNombre());
-                    numero_2.setText("Numero: "+auxiliar.getNumero());
-                    size_2.setText("Size: "+auxiliar.getSize());
+                    Datos(auxiliar);
                 }
             }
         });
@@ -220,10 +216,46 @@ public class Ventana {
      boton_borrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(lista.Vacia()){
-                  JOptionPane.showMessageDialog(null,"La lista esta vacia","Error",JOptionPane.ERROR_MESSAGE);  
+               if(lista.Vacia()){
+                   JOptionPane.showMessageDialog(null,"La lista esta vacia","Error",JOptionPane.ERROR_MESSAGE); 
+ 
                 }
-               JOptionPane.showMessageDialog(null,"El numero de discos debe ser distinto de 0","Error",JOptionPane.ERROR_MESSAGE); 
+                else{
+                int num = Integer.parseInt(JOptionPane.showInputDialog("intruduce tu edad"));
+                Nodo aux = lista.Buscar(num);
+                if(aux==null){
+                    JOptionPane.showMessageDialog(null,"El estudiante no existe","Advertencia",JOptionPane.WARNING_MESSAGE); 
+
+                }
+                else{
+                    if(lista.getSize()==1){
+                        nombre1.setText("Nombre");
+                        nombre2.setText("Nombre: ");
+                        numero_2.setText("Numero: ");
+                        size_2.setText("Size: ");
+                        panel_img.remove(auxiliar.getClase_img().getLabel());
+                        panel_img.repaint();
+                        informacion.repaint();
+                        lista.Eliminar(num);
+                        Inicio = false;
+                    }
+                    else{
+                        if(auxiliar.getNumero()==num){
+                        Anterio_Siguiente(aux);
+                        lista.Eliminar(num);
+                        }
+                        else{
+                           lista.Eliminar(num);  
+                        }
+
+                        
+                        
+                    }
+                   
+                }
+                    
+                }
+              
             }
         });
      //FIN ACCION DE BOTONES
@@ -239,5 +271,17 @@ public class Ventana {
         numero_2.setText("Numero: "+aux.getNumero());
         size_2.setText("Size: "+aux.getSize());
        informacion.repaint();
+    }
+     public void Anterio_Siguiente(Nodo aux){
+        if(aux.getSig()!=null){
+              auxiliar = auxiliar.getSig();    
+             Datos(auxiliar);
+        }
+        else{
+              auxiliar = auxiliar.getAnt();        
+              Datos(auxiliar);
+            
+        }
+        
     }
 }

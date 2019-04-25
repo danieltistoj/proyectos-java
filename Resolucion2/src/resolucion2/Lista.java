@@ -89,6 +89,21 @@ public class Lista {
         tope = aux.getSig();
         aux = null;
     }
+     
+     
+      public Nodo Buscar(int carnet){
+        Nodo aux = tope, nodo=null;
+        
+        boolean existe=false;
+        while(aux!=null){
+            if(carnet==aux.getNumero()){
+                nodo=aux;
+            }
+            aux = aux.getSig();
+        }
+        return nodo;
+        
+    }
      //eliminar por referencia
       public void Eliminar(int numero){
         if(size==1){
@@ -114,7 +129,9 @@ public class Lista {
             while(aux.getSig()!=null){
                 if(numero==aux.getNumero()){
                     Nodo anterior = aux.getAnt();
+                    Nodo siguiente = aux.getSig();
                     anterior.setSig(aux.getSig());
+                    siguiente.setAnt(anterior);
                     aux = null;
                     break;
                 }

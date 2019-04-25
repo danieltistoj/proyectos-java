@@ -5,8 +5,11 @@
  */
 package resolucion2;
 
-
+import java.awt.Image;
+import java.io.IOException;
 import java.net.URL;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -15,22 +18,50 @@ import javax.swing.JLabel;
  * @author Usuario
  */
 public class Imagen {
-    JLabel imagen = new JLabel("dfsaf");
+    private JLabel label;
+    private Image imagen;
 
-    public Imagen(String n,int ancho, int alto){
-      ImageIcon icon = new ImageIcon(n); 
-      imagen.setIcon(icon);
-      imagen.setBounds(0,0,icon.getIconWidth(),icon.getIconHeight());
+    public Imagen(String n){
+        Cargar(n);
+        
+        label = new JLabel(new ImageIcon(getImagen()));
+        /*
+      Image imagen = null;
+      URL url = new URL(n);
+      Image image = ImageIO.read(url);
+     */
+     
+     /*
+     JLabel label = new JLabel(new ImageIcon(image));
+     imagen1.setIcon(label.getIcon());
+*/
       
     }
-    
-    public JLabel getImagen() {
+    public void Cargar(String n){
+        try{
+            URL url =new URL(n);
+            imagen = ImageIO.read(url);
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+    public JLabel getLabel() {
+        return label;
+    }
+
+    public void setLabel(JLabel label) {
+        this.label = label;
+    }
+
+    public Image getImagen() {
         return imagen;
     }
 
-    public void setImagen(JLabel imagen) {
+    public void setImagen(Image imagen) {
         this.imagen = imagen;
     }
-    
+
+  
     
 }
