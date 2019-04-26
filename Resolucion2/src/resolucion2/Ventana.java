@@ -34,10 +34,12 @@ public class Ventana {
         nombre2  = new JLabel("Nombre:");
         size_2 = new JLabel("Size:");
         numero_2 = new JLabel("Numero:");
+        url2 = new JLabel("URL: ");
         
-        nombre2.setBounds(350, 20, 100, 20);
-        size_2.setBounds(350, 100, 100, 20);
-        numero_2.setBounds(350,160, 100, 20);
+        nombre2.setBounds(230, 20, 100, 20);
+        size_2.setBounds(230, 80, 100, 20);
+        numero_2.setBounds(230,140, 100, 20);
+        url2.setBounds(230, 200, 350, 20);
         
   
         url1 = new JLabel("URL");
@@ -85,6 +87,7 @@ public class Ventana {
         informacion.add(size_2);
         informacion.add(boton_ordenar);
         informacion.add(boton_borrar);
+        informacion.add(url2);
 
         
         panel_img = new JPanel();
@@ -229,7 +232,7 @@ public class Ventana {
                 }
                 else{
                     if(lista.getSize()==1){
-                        nombre1.setText("Nombre");
+                       
                         nombre2.setText("Nombre: ");
                         numero_2.setText("Numero: ");
                         size_2.setText("Size: ");
@@ -270,7 +273,8 @@ public class Ventana {
         nombre2.setText("Nombre: "+aux.getNombre());
         numero_2.setText("Numero: "+aux.getNumero());
         size_2.setText("Size: "+aux.getSize());
-       informacion.repaint();
+        url2.setText("URL: "+aux.getUrl());
+        informacion.repaint();
     }
      public void Anterio_Siguiente(Nodo aux){
         if(aux.getSig()!=null){

@@ -42,11 +42,41 @@ public class Arbol {
             }
             
         }
-      int izq = getAltura(nodo.getHijo_izq());
-      int der = getAltura(nodo.getHijo_der());
-      int eqb = der - izq;
+        //Factor de equilibio
+      int izq = getAltura(nodo.getHijo_izq()); // altura izquierda
+      int der = getAltura(nodo.getHijo_der()); // altura derecha
+      int eqb = der - izq; // diferencia / factor de equilibrio
       nodo.setEquilibrio(eqb);
+        
+      
+      //Rotacion simple
+      
+      if(nodo.getEquilibrio()>1||nodo.getEquilibrio()<-1){
          
+          if(izq>der){
+              Nodo n1 = nodo.getHijo_izq();
+              nodo.setHijo_izq(n1.getHijo_der());
+             int  altura = getAltura(nodo);
+              nodo.setAltura(altura);
+              n1.setHijo_der(nodo);
+              nodo = n1;
+              System.out.println("entro");
+          }
+          
+          else{
+              Nodo n1 = nodo.getHijo_der();
+              nodo.setHijo_der(n1.getHijo_izq());
+              int  altura = getAltura(nodo);
+              nodo.setAltura(altura);
+              n1.setHijo_izq(nodo);
+              nodo = n1;
+              
+          }
+          
+
+      }
+
+        
         return nodo;
     }
     
@@ -135,6 +165,7 @@ public class Arbol {
             Altura(actual.getHijo_der(), altura+1);
         }
     }
+    
     public int getAltura(Nodo nodo){
         altura=0;
         Altura(nodo,1);

@@ -18,8 +18,8 @@ public class Arbol_AVL {
             Arbol arbol = new Arbol();
            arbol.Insertar(10);
            arbol.Insertar(3);
-           arbol.Insertar(9);
-           arbol.Insertar(7);
+           arbol.Insertar(2);
+           arbol.Insertar(1);
            arbol.Insertar(11);
                        
                        System.out.println("............altura del arbol..........");
@@ -27,7 +27,8 @@ public class Arbol_AVL {
                        System.out.println("la altura del arbol es: "+altura);
            
                        System.out.println("............................................");
-                       System.out.println("se ingresa el numero 9 para ver a qur nivel esta");
+                     //  System.out.println("se ingresa el numero 9 para ver a qur nivel esta");
+                       /*
                        Nodo aux = arbol.Buscar(9);
                        if(aux!=null){
                            System.out.println("la altura del numero es: "+arbol.getConta());
@@ -35,10 +36,10 @@ public class Arbol_AVL {
                        else{
                            System.out.println("El numero no existe");
                        }
-                   
+                   */
                       System.out.println("....................................................."); 
                       System.out.println("se ingresa 11 para ver la altura de sus hijos");
-                      Nodo aux1 = arbol.Buscar(10);
+                      Nodo aux1 = arbol.Buscar(3);
                        if(aux1.getHijo_der()!=null){
                            System.out.println("La altura del hijo derecho es: "+aux1.getHijo_der().getAltura());
                        }
@@ -50,6 +51,7 @@ public class Arbol_AVL {
                   System.out.println(arbol.getAltura(arbol.getRaiz().getHijo_der()));
                   System.out.println(arbol.getAltura(arbol.getRaiz().getHijo_izq()));
                   System.out.println(arbol.Ordenar_In());
+                 // System.out.println(arbol.getRaiz().getHijo_izq().getHijo_der().getHijo_izq().getDato());
     }
     
 }
