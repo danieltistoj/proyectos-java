@@ -51,25 +51,73 @@ public class Arbol {
       
       //Rotacion simple
       
-      if(nodo.getEquilibrio()>1||nodo.getEquilibrio()<-1){
+      if(nodo.getEquilibrio()>1||nodo.getEquilibrio()<(-1)){
          
           if(izq>der){
+             
+                if(getAltura(nodo.getHijo_izq().getHijo_der())>getAltura(nodo.getHijo_izq().getHijo_izq())){
+                    Nodo n1 = nodo.getHijo_izq();
+                    Nodo n2 = n1.getHijo_der();
+                    
+                    n1.setHijo_der(n2.getHijo_izq());//n1.der = n2.izq
+                    int altura1 = getAltura(n1); // encontramos la nueva altura del nodo n1
+                    n1.setAltura(altura1); // insertamos la nueva altura del nodo n1
+                    FactorEquilibrio(n1); // encontramos el nuevo factor de equilibrio del nodo
+                    n2.setHijo_izq(n1);//n2.izq = n1;
+                    nodo.setHijo_izq(n2.getHijo_der());//n.izq = n2.der
+                    int altura2 = getAltura(nodo);// encontramos la nueva altura del nodo padre o raiz 
+                    nodo.setAltura(altura2); //ingresamos la nueva altura del arbol nodo  raiz 
+                    FactorEquilibrio(nodo); // buscamos el factor de equilibri nuevo de este arbol
+                    n2.setHijo_der(nodo);// n2.der = n
+                    int altura3 = getAltura(n2); // encontramos la altura del nodo n2 
+                    n2.setAltura(altura3); // ingresamos la nueva altura del nodo n2
+                    FactorEquilibrio(n2);
+                    nodo = n2;//n = n2 // ahora el nodo n2 sera el nodo raiz o padre 
+                }
+                
+                else{
+               
               Nodo n1 = nodo.getHijo_izq();
               nodo.setHijo_izq(n1.getHijo_der());
-             int  altura = getAltura(nodo);
-              nodo.setAltura(altura);
+              int  altura1 = getAltura(nodo);
+              nodo.setAltura(altura1);
               n1.setHijo_der(nodo);
               nodo = n1;
-              System.out.println("entro");
+                }
+             
           }
           
           else{
+              if(getAltura(nodo.getHijo_der().getHijo_izq())>getAltura(nodo.getHijo_der().getHijo_der())){
+                  Nodo n1 = nodo.getHijo_der();
+                  Nodo n2 = n1.getHijo_izq();
+                  
+                  n1.setHijo_izq(n2.getHijo_der());
+                  int altura1 = getAltura(n1);
+                  n1.setAltura(altura1);
+                  FactorEquilibrio(n1);
+                  n2.setHijo_der(n1);
+                  nodo.setHijo_der(n2.getHijo_izq());
+                  int altura2 = getAltura(nodo);
+                  nodo.setAltura(altura2);
+                  FactorEquilibrio(nodo);
+                  n2.setHijo_izq(nodo);
+                  int altura3 = getAltura(n2);
+                  n2.setAltura(altura3);
+                  FactorEquilibrio(n2);
+                  nodo = n2;
+                  
+              }
+              else{
+                  
+              
               Nodo n1 = nodo.getHijo_der();
               nodo.setHijo_der(n1.getHijo_izq());
-              int  altura = getAltura(nodo);
-              nodo.setAltura(altura);
+              int  altura1 = getAltura(nodo);
+              nodo.setAltura(altura1);
               n1.setHijo_izq(nodo);
               nodo = n1;
+              } 
               
           }
           
@@ -78,6 +126,13 @@ public class Arbol {
 
         
         return nodo;
+    }
+    public void FactorEquilibrio(Nodo nodo){
+        int altura_izq = getAltura(nodo.getHijo_izq());
+        int altura_der = getAltura(nodo.getHijo_der());
+        
+        int FacEql = altura_der-altura_izq;
+        nodo.setEquilibrio(FacEql);
     }
     
    public Nodo Buscar(int dato){
@@ -151,7 +206,7 @@ public class Arbol {
     private void Inorden(Nodo nodo_raiz){
         if(nodo_raiz!=null){
             Inorden(nodo_raiz.getHijo_izq());
-            cadena += "Dato: "+nodo_raiz.getDato()+" Equilibrio: "+nodo_raiz.getEquilibrio()+"\n";
+            cadena += "Dato: "+nodo_raiz.getDato()+" Factor De Equilibrio: "+nodo_raiz.getEquilibrio()+"\n";
             Inorden(nodo_raiz.getHijo_der());
         }
         

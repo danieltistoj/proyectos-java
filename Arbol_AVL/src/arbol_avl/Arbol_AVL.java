@@ -16,15 +16,24 @@ public class Arbol_AVL {
      */
     public static void main(String[] args) {
             Arbol arbol = new Arbol();
+            Arbol arbol2 = new Arbol();
+            
+           arbol2.Insertar(10);
+           arbol2.Insertar(3);
+           arbol2.Insertar(5);
+            
            arbol.Insertar(10);
-           arbol.Insertar(3);
-           arbol.Insertar(2);
-           arbol.Insertar(1);
-           arbol.Insertar(11);
+           arbol.Insertar(15);
+           arbol.Insertar(12);
+          // arbol.Insertar(1);
+          // arbol.Insertar(11);
                        
                        System.out.println("............altura del arbol..........");
+                       System.out.println("Arbol 1: 10, 15, 12");
+                       System.out.println("Arbol 2: 10, 3, 5\n");
                        int altura = arbol.getAltura(arbol.getRaiz());
-                       System.out.println("la altura del arbol es: "+altura);
+                       System.out.println("la altura del arbol 1 es: "+altura);
+                       System.out.println("la altura del arbol 2 es "+arbol2.getRaiz().getAltura());
            
                        System.out.println("............................................");
                      //  System.out.println("se ingresa el numero 9 para ver a qur nivel esta");
@@ -37,20 +46,19 @@ public class Arbol_AVL {
                            System.out.println("El numero no existe");
                        }
                    */
-                      System.out.println("....................................................."); 
-                      System.out.println("se ingresa 11 para ver la altura de sus hijos");
-                      Nodo aux1 = arbol.Buscar(3);
-                       if(aux1.getHijo_der()!=null){
-                           System.out.println("La altura del hijo derecho es: "+aux1.getHijo_der().getAltura());
-                       }
-                       if(aux1.getHijo_izq()!=null){
-                           System.out.println("La altura del hijo izquierdo es: "+aux1.getHijo_izq().getAltura());
-                       }
-                  System.out.println("*******Equilibrio******");
-                  System.out.println(arbol.getRaiz().getEquilibrio());
-                  System.out.println(arbol.getAltura(arbol.getRaiz().getHijo_der()));
-                  System.out.println(arbol.getAltura(arbol.getRaiz().getHijo_izq()));
+                      System.out.println(".....................................................");
+                     
+                  System.out.println("*******Equilibrio Arbol 1 D.I******\n");
+                  System.out.println("nodo raiz: "+arbol.getRaiz().getDato());
+                  System.out.println("nodo izquierdo: "+arbol.getRaiz().getHijo_der().getDato());
+                  System.out.println("nodo derecho: "+arbol.getRaiz().getHijo_izq().getDato()+"\n");
                   System.out.println(arbol.Ordenar_In());
+                  
+                  System.out.println("\n*******Equilibrio Arbol 2 I.D******\n");
+                  System.out.println("nodo raiz: "+arbol2.getRaiz().getDato());
+                  System.out.println("nodo izquierdo: "+arbol2.getRaiz().getHijo_der().getDato());
+                  System.out.println("nodo derecho: "+arbol2.getRaiz().getHijo_izq().getDato()+"\n");
+                  System.out.println(arbol2.Ordenar_In());
                  // System.out.println(arbol.getRaiz().getHijo_izq().getHijo_der().getHijo_izq().getDato());
     }
     
