@@ -10,7 +10,7 @@ package arbol_avl;
  * @author Usuario
  */
 public class Arbol {
-     private Nodo raiz;
+    private Nodo raiz;
     private String cadena = "";
     private int conta, altura;
   
