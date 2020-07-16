@@ -13,7 +13,7 @@ public class Lista {
    private Nodo tope=null;
    private int size=0;
    
-   public void Push(int dato){
+   public void Push(int dato,char caracter){
        tope = Agregar(dato,tope);
        size++;
    }
