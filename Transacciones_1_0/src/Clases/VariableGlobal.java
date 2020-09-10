@@ -11,5 +11,5 @@ package Clases;
  * @author Sammy Guergachi <sguergachi at gmail.com>
  */
 public class VariableGlobal {
-
+  public static ConexionMySQL conexion = new ConexionMySQL("3305","hoja2base2","root","xela2020");
 }

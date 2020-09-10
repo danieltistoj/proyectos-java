@@ -65,6 +65,20 @@ public class ConexionBD {
             System.out.println(ex.getMessage());
         }
     }
- 
+    public void CerrarConexion(){
+        try {
+           conexion.close(); 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al cerrar", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
+        }  
+    }
+   
+
+    public ResultSet getResultSet() {
+        return resultSet;
+    }
+    
+      
 
 }

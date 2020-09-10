@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package transacciones_1_0;
+import Clases.VariableGlobal;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,11 +35,12 @@ public class Formulario extends javax.swing.JFrame {
         PanelPrincipal = new javax.swing.JPanel();
         BarraDeMenu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        ModificarAislamiento = new javax.swing.JMenu();
+        ReadUncommitted = new javax.swing.JMenuItem();
+        ReadCommitted = new javax.swing.JMenuItem();
+        RepeatableRead = new javax.swing.JMenuItem();
+        Serializable = new javax.swing.JMenuItem();
+        VerAsilamiento = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -54,25 +58,34 @@ public class Formulario extends javax.swing.JFrame {
 
         jMenu1.setText("Aislamiento");
 
-        jMenuItem1.setText("Lectura comprometida");
-        jMenu1.add(jMenuItem1);
+        ModificarAislamiento.setText("Modificar aislamiento");
 
-        jMenuItem2.setText("Lectura no comprometida");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        ReadUncommitted.setText("Leer no comprometido");
+        ModificarAislamiento.add(ReadUncommitted);
+
+        ReadCommitted.setText("Leer comprometido");
+        ModificarAislamiento.add(ReadCommitted);
+
+        RepeatableRead.setText("Leer repetido");
+        ModificarAislamiento.add(RepeatableRead);
+
+        Serializable.setText("Serializable");
+        Serializable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                SerializableActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        ModificarAislamiento.add(Serializable);
 
-        jMenuItem3.setText("Lectura repetible");
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(ModificarAislamiento);
 
-        jMenuItem4.setText("Serializable");
-        jMenu1.add(jMenuItem4);
-
-        jMenuItem5.setText("Ver aislamiento");
-        jMenu1.add(jMenuItem5);
+        VerAsilamiento.setText("Ver aislamiento");
+        VerAsilamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerAsilamientoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(VerAsilamiento);
 
         BarraDeMenu.add(jMenu1);
 
@@ -95,9 +108,32 @@ public class Formulario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void cambioAislamiento(String aisla){
+        int resp = JOptionPane.showConfirmDialog(null,"¿Esta seguro de cambiar "+"\nel nivel de aislamiento a "+aisla+"?","¡Alerta"
+        ,JOptionPane.YES_NO_OPTION);
+        if(resp == 0){
+           VariableGlobal.conexion.EjecutarInstruccion("SET GLOBAL TRANSACTION ISOLATION LEVEL "+aisla);
+           JOptionPane.showMessageDialog(null,"El aislamiento fue cambiado");
+        }
+    }
+    //Ver el aislamiento de la base
+    private void VerAsilamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerAsilamientoActionPerformed
+        String nivelAislamiento = "";
+        VariableGlobal.conexion.EjecutarConsulta("show variables like 'tx_isolation'");
+        ResultSet rs = VariableGlobal.conexion.getResultSet();
+        try {
+            while(rs.next()){
+                nivelAislamiento = rs.getString("Value");
+            }
+
+        } catch (Exception e) {
+        }
+        JOptionPane.showMessageDialog(null,"EL nivle de aislamiento es: "+nivelAislamiento,"",JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_VerAsilamientoActionPerformed
+
+    private void SerializableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SerializableActionPerformed
+        cambioAislamiento("SERIALIZABLE");
+    }//GEN-LAST:event_SerializableActionPerformed
 
     /**
      * @param args the command line arguments
@@ -136,13 +172,14 @@ public class Formulario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar BarraDeMenu;
+    private javax.swing.JMenu ModificarAislamiento;
     private javax.swing.JPanel PanelPrincipal;
+    private javax.swing.JMenuItem ReadCommitted;
+    private javax.swing.JMenuItem ReadUncommitted;
+    private javax.swing.JMenuItem RepeatableRead;
+    private javax.swing.JMenuItem Serializable;
+    private javax.swing.JMenuItem VerAsilamiento;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     // End of variables declaration//GEN-END:variables
 }

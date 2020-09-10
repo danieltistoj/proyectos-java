@@ -12,9 +12,10 @@ package Clases;
  */
 public class ConexionMySQL extends ConexionBD{
 public ConexionMySQL(String puerto,String baseDatos,String usuario,String password){
-        super("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost"+":"+puerto+"/"+baseDatos,usuario,password);
+    //com.mysql.cj.jdbc.Driver
+        super("com.mysql.jdbc.Driver","jdbc:mysql://localhost"+":"+puerto+"/"+baseDatos,usuario,password);
     }
     public ConexionMySQL(String baseDatos,String usuario,String password){
-        super("com.mysql.cj.jdbc.Driver","jdbc:mysql://localhost"+"/"+baseDatos);
+        super("com.mysql.jdbc.Driver","jdbc:mysql://localhost"+"/"+baseDatos);
     }
 }

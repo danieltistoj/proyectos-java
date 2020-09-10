@@ -9,33 +9,43 @@
             <Property name="text" type="java.lang.String" value="Aislamiento"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <Menu class="javax.swing.JMenu" name="ModificarAislamiento">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Lectura comprometida"/>
+                <Property name="text" type="java.lang.String" value="Modificar aislamiento"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lectura no comprometida"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lectura repetible"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Serializable"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="ReadUncommitted">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Leer no comprometido"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="ReadCommitted">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Leer comprometido"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="RepeatableRead">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Leer repetido"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="Serializable">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Serializable"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SerializableActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <MenuItem class="javax.swing.JMenuItem" name="VerAsilamiento">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ver aislamiento"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="VerAsilamientoActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
