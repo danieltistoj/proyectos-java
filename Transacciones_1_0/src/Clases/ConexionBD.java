@@ -32,6 +32,7 @@ public class ConexionBD {
             System.out.println(ex.getMessage());
         }
     }
+    
 
     /*Este constructor es utilizado cuando el usuario no necesita un nombre de usuario ni una contrasena, solo la direccion de Driver y la cadena de conexion*/
     public ConexionBD(String claseNombre, String cadenaConexion) {
@@ -74,11 +75,7 @@ public class ConexionBD {
         }  
     }
    
-
     public ResultSet getResultSet() {
         return resultSet;
     }
-    
-      
-
 }

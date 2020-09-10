@@ -14,13 +14,12 @@ import javax.swing.JOptionPane;
  */
 public class Formulario extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Formulario
-     */
+    private VariableGlobal conexion;
     public Formulario() {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Transacciones");
+        conexion = new VariableGlobal();
     }
 
     /**
@@ -61,12 +60,27 @@ public class Formulario extends javax.swing.JFrame {
         ModificarAislamiento.setText("Modificar aislamiento");
 
         ReadUncommitted.setText("Leer no comprometido");
+        ReadUncommitted.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReadUncommittedActionPerformed(evt);
+            }
+        });
         ModificarAislamiento.add(ReadUncommitted);
 
         ReadCommitted.setText("Leer comprometido");
+        ReadCommitted.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReadCommittedActionPerformed(evt);
+            }
+        });
         ModificarAislamiento.add(ReadCommitted);
 
         RepeatableRead.setText("Leer repetido");
+        RepeatableRead.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RepeatableReadActionPerformed(evt);
+            }
+        });
         ModificarAislamiento.add(RepeatableRead);
 
         Serializable.setText("Serializable");
@@ -107,25 +121,26 @@ public class Formulario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+   //Cambia el nivel de aislamiento
     private void cambioAislamiento(String aisla){
         int resp = JOptionPane.showConfirmDialog(null,"¿Esta seguro de cambiar "+"\nel nivel de aislamiento a "+aisla+"?","¡Alerta"
         ,JOptionPane.YES_NO_OPTION);
         if(resp == 0){
-           VariableGlobal.conexion.EjecutarInstruccion("SET GLOBAL TRANSACTION ISOLATION LEVEL "+aisla);
+           conexion.conexion.EjecutarInstruccion("SET GLOBAL TRANSACTION ISOLATION LEVEL "+aisla);//Ejecutamos la sentencia para cambiar el aislamiento
            JOptionPane.showMessageDialog(null,"El aislamiento fue cambiado");
+           conexion.conexion.CerrarConexion();//Cerramos la conexion 
+           conexion = new VariableGlobal();//Instanciamos un nuevamente la variable conexion. Para poder ver los cambios
         }
     }
     //Ver el aislamiento de la base
     private void VerAsilamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerAsilamientoActionPerformed
         String nivelAislamiento = "";
-        VariableGlobal.conexion.EjecutarConsulta("show variables like 'tx_isolation'");
-        ResultSet rs = VariableGlobal.conexion.getResultSet();
+        conexion.conexion.EjecutarConsulta("show variables like 'tx_isolation'");//Realizamos la consulta 
+        ResultSet rs = conexion.conexion.getResultSet();//Obtenemos el ResultSet, que tiene los registros de la consulta
         try {
-            while(rs.next()){
-                nivelAislamiento = rs.getString("Value");
+            while(rs.next()){//Recorremos todos los registros de la consulta. 
+                nivelAislamiento = rs.getString("Value");//Retornamos el dato que este en la columna Values. Que es donde esta el nivel de aislamiento
             }
-
         } catch (Exception e) {
         }
         JOptionPane.showMessageDialog(null,"EL nivle de aislamiento es: "+nivelAislamiento,"",JOptionPane.INFORMATION_MESSAGE);
@@ -134,6 +149,18 @@ public class Formulario extends javax.swing.JFrame {
     private void SerializableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SerializableActionPerformed
         cambioAislamiento("SERIALIZABLE");
     }//GEN-LAST:event_SerializableActionPerformed
+
+    private void RepeatableReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RepeatableReadActionPerformed
+        cambioAislamiento("REPEATABLE READ");
+    }//GEN-LAST:event_RepeatableReadActionPerformed
+
+    private void ReadCommittedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReadCommittedActionPerformed
+        cambioAislamiento("READ COMMITTED");
+    }//GEN-LAST:event_ReadCommittedActionPerformed
+
+    private void ReadUncommittedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReadUncommittedActionPerformed
+        cambioAislamiento("READ UNCOMMITTED");
+    }//GEN-LAST:event_ReadUncommittedActionPerformed
 
     /**
      * @param args the command line arguments
