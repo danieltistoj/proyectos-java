@@ -15,11 +15,14 @@ import javax.swing.JOptionPane;
 public class Formulario extends javax.swing.JFrame {
 
     private VariableGlobal conexion;
+    private String[] titulos = {"id","Nombre","Nit","Direccion","Saldo"};
     public Formulario() {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Transacciones");
         conexion = new VariableGlobal();
+        botonRollBack.setEnabled(false);
+        botonCommit.setEnabled(false);
     }
 
     /**
@@ -31,7 +34,24 @@ public class Formulario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        PanelPrincipal = new javax.swing.JPanel();
+        MenuEmergente = new javax.swing.JPopupMenu();
+        EmergenteEliminar = new javax.swing.JMenuItem();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        botonRecargarBD = new rojeru_san.RSButtonRiple();
+        botonIniciarTran = new rojeru_san.RSButtonRiple();
+        botonRollBack = new rojeru_san.RSButtonRiple();
+        botonNuevaVentana = new rojeru_san.RSButton();
+        botonCommit = new rojeru_san.RSButtonRiple();
+        rSPanelsSlider1 = new rojeru_san.RSPanelsSlider();
+        panelTabla = new javax.swing.JPanel();
+        txtBuscar = new rojeru_san.RSMTextFull();
+        botonBuscar = new rojeru_san.RSButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TablaCliente = new rojerusan.RSTableMetro();
+        comboClientes = new javax.swing.JComboBox<>();
+        rSButton1 = new rojeru_san.RSButton();
+        jPanel3 = new javax.swing.JPanel();
         BarraDeMenu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         ModificarAislamiento = new javax.swing.JMenu();
@@ -40,22 +60,196 @@ public class Formulario extends javax.swing.JFrame {
         RepeatableRead = new javax.swing.JMenuItem();
         Serializable = new javax.swing.JMenuItem();
         VerAsilamiento = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+
+        EmergenteEliminar.setText("Eliminar");
+        EmergenteEliminar.setActionCommand("Eliminar");
+        EmergenteEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EmergenteEliminarActionPerformed(evt);
+            }
+        });
+        MenuEmergente.add(EmergenteEliminar);
+        EmergenteEliminar.getAccessibleContext().setAccessibleName("Eliminar");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout PanelPrincipalLayout = new javax.swing.GroupLayout(PanelPrincipal);
-        PanelPrincipal.setLayout(PanelPrincipalLayout);
-        PanelPrincipalLayout.setHorizontalGroup(
-            PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 712, Short.MAX_VALUE)
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 112, 192)));
+
+        botonRecargarBD.setText("Recargar BD");
+        botonRecargarBD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRecargarBDActionPerformed(evt);
+            }
+        });
+
+        botonIniciarTran.setText("Iniciar Transaccion");
+        botonIniciarTran.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonIniciarTranActionPerformed(evt);
+            }
+        });
+
+        botonRollBack.setText("Retornar");
+        botonRollBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRollBackActionPerformed(evt);
+            }
+        });
+
+        botonNuevaVentana.setText("Nueva Ventana");
+        botonNuevaVentana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonNuevaVentanaActionPerformed(evt);
+            }
+        });
+
+        botonCommit.setText("Confirmar");
+        botonCommit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCommitActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(botonRollBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botonRecargarBD, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botonIniciarTran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(botonNuevaVentana, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(botonCommit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
-        PanelPrincipalLayout.setVerticalGroup(
-            PanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 444, Short.MAX_VALUE)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(botonRecargarBD, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(78, 78, 78)
+                .addComponent(botonIniciarTran, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(botonRollBack, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(botonCommit, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addComponent(botonNuevaVentana, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
         );
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 19, Short.MAX_VALUE))
+        );
+
+        panelTabla.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 112, 192)));
+
+        botonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/seo-social-web-network-internet_340_icon-icons.com_61497.png"))); // NOI18N
+        botonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBuscarActionPerformed(evt);
+            }
+        });
+
+        TablaCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        TablaCliente.setComponentPopupMenu(MenuEmergente);
+        jScrollPane1.setViewportView(TablaCliente);
+
+        comboClientes.setBackground(new java.awt.Color(0, 112, 192));
+        comboClientes.setEditable(true);
+        comboClientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Deudores", "Sin deuda", " " }));
+
+        rSButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/add-new-document_icon-icons.com_54068.png"))); // NOI18N
+
+        javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
+        panelTabla.setLayout(panelTablaLayout);
+        panelTablaLayout.setHorizontalGroup(
+            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTablaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
+                    .addGroup(panelTablaLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(rSButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                            .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        panelTablaLayout.setVerticalGroup(
+            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTablaLayout.createSequentialGroup()
+                .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTablaLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelTablaLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(rSButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)))
+                .addGap(29, 29, 29)
+                .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        rSPanelsSlider1.add(panelTabla, "card2");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 507, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 412, Short.MAX_VALUE)
+        );
+
+        rSPanelsSlider1.add(jPanel3, "card3");
+
+        BarraDeMenu.setBackground(new java.awt.Color(0, 112, 192));
+
+        jMenu1.setForeground(new java.awt.Color(255, 255, 255));
         jMenu1.setText("Aislamiento");
+        jMenu1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         ModificarAislamiento.setText("Modificar aislamiento");
 
@@ -103,20 +297,27 @@ public class Formulario extends javax.swing.JFrame {
 
         BarraDeMenu.add(jMenu1);
 
-        jMenu2.setText("Operaciones");
-        BarraDeMenu.add(jMenu2);
-
         setJMenuBar(BarraDeMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(rSPanelsSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(10, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rSPanelsSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4))
         );
 
         pack();
@@ -131,6 +332,31 @@ public class Formulario extends javax.swing.JFrame {
            conexion.conexion.CerrarConexion();//Cerramos la conexion 
            conexion = new VariableGlobal();//Instanciamos un nuevamente la variable conexion. Para poder ver los cambios
         }
+    }
+    //Cargar tabla
+    private void CargarTabla(String parametro,int itemCombo){
+         String consulta = "select * from cliente";
+        switch(itemCombo){
+            case 0:
+                
+                if(parametro.length()>0){
+                   consulta = consulta+" where id = "+parametro;
+                }
+                break;
+            case 1:
+                consulta = consulta + " where Saldo > 0";
+                if(parametro.length()>0){
+                    consulta = consulta + " and id = "+parametro;
+                }
+                break;
+            case 2:
+                consulta = consulta + " where Saldo = 0";
+                if(parametro.length()>0){
+                    consulta = consulta + " and id = "+parametro;
+                }  
+                break;
+        }
+        conexion.conexion.llenarTabla(titulos, TablaCliente, consulta);
     }
     //Ver el aislamiento de la base
     private void VerAsilamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerAsilamientoActionPerformed
@@ -161,6 +387,58 @@ public class Formulario extends javax.swing.JFrame {
     private void ReadUncommittedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReadUncommittedActionPerformed
         cambioAislamiento("READ UNCOMMITTED");
     }//GEN-LAST:event_ReadUncommittedActionPerformed
+
+    private void botonIniciarTranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarTranActionPerformed
+        conexion.conexion.EjecutarInstruccion("start transaction");
+        botonIniciarTran.setEnabled(false);
+        botonRollBack.setEnabled(true);
+        botonCommit.setEnabled(true);
+    }//GEN-LAST:event_botonIniciarTranActionPerformed
+
+    private void botonRecargarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRecargarBDActionPerformed
+        conexion = new VariableGlobal();
+    }//GEN-LAST:event_botonRecargarBDActionPerformed
+
+    private void botonRollBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRollBackActionPerformed
+        conexion.conexion.EjecutarInstruccion("rollback");
+        botonRollBack.setEnabled(false);
+        botonCommit.setEnabled(false);
+        botonIniciarTran.setEnabled(true);
+        CargarTabla("",comboClientes.getSelectedIndex());
+    }//GEN-LAST:event_botonRollBackActionPerformed
+
+    private void botonNuevaVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaVentanaActionPerformed
+        Transacciones_1_0.main(null);
+    }//GEN-LAST:event_botonNuevaVentanaActionPerformed
+
+    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
+        
+        CargarTabla(txtBuscar.getText(),comboClientes.getSelectedIndex());
+    }//GEN-LAST:event_botonBuscarActionPerformed
+
+    private void EmergenteEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmergenteEliminarActionPerformed
+        int fila = TablaCliente.getSelectedRow(), resp;
+        if(fila >0 ){
+            resp = JOptionPane.showConfirmDialog(null,"Esta seguro de eliminar el cliente: "+TablaCliente.getValueAt(fila,1)
+            ,"Advertencia",JOptionPane.WARNING_MESSAGE);
+            if(resp == 0){
+                conexion.conexion.EjecutarInstruccion("delete from cliente where id = "+TablaCliente.getValueAt(fila,0));
+                //JOptionPane.showMessageDialog(null,"Cliente eliminado","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+                CargarTabla("",comboClientes.getSelectedIndex());
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Seleccione una registro","Error",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_EmergenteEliminarActionPerformed
+
+    private void botonCommitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCommitActionPerformed
+        conexion.conexion.EjecutarInstruccion("commit");
+        botonCommit.setEnabled(false);
+        botonRollBack.setEnabled(false);
+        botonIniciarTran.setEnabled(true);
+        CargarTabla("",comboClientes.getSelectedIndex());
+    }//GEN-LAST:event_botonCommitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,14 +477,30 @@ public class Formulario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar BarraDeMenu;
+    private javax.swing.JMenuItem EmergenteEliminar;
+    private javax.swing.JPopupMenu MenuEmergente;
     private javax.swing.JMenu ModificarAislamiento;
-    private javax.swing.JPanel PanelPrincipal;
     private javax.swing.JMenuItem ReadCommitted;
     private javax.swing.JMenuItem ReadUncommitted;
     private javax.swing.JMenuItem RepeatableRead;
     private javax.swing.JMenuItem Serializable;
+    private rojerusan.RSTableMetro TablaCliente;
     private javax.swing.JMenuItem VerAsilamiento;
+    private rojeru_san.RSButton botonBuscar;
+    private rojeru_san.RSButtonRiple botonCommit;
+    private rojeru_san.RSButtonRiple botonIniciarTran;
+    private rojeru_san.RSButton botonNuevaVentana;
+    private rojeru_san.RSButtonRiple botonRecargarBD;
+    private rojeru_san.RSButtonRiple botonRollBack;
+    private javax.swing.JComboBox<String> comboClientes;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel panelTabla;
+    private rojeru_san.RSButton rSButton1;
+    private rojeru_san.RSPanelsSlider rSPanelsSlider1;
+    private rojeru_san.RSMTextFull txtBuscar;
     // End of variables declaration//GEN-END:variables
 }
