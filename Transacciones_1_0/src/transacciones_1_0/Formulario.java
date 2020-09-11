@@ -7,6 +7,7 @@ package transacciones_1_0;
 import Clases.VariableGlobal;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import rojeru_san.RSPanelsSlider;
 
 /**
  *
@@ -23,6 +24,10 @@ public class Formulario extends javax.swing.JFrame {
         conexion = new VariableGlobal();
         botonRollBack.setEnabled(false);
         botonCommit.setEnabled(false);
+        DialogNuevo.setTitle("Nuevo cliente");
+        DialogNuevo.setLocationRelativeTo(null);
+        DialogNuevo.setSize(404,430);
+        //DialogNuevo.setDefaultCloseOperation(DialogNuevo.EXIT_ON_CLOSE);
     }
 
     /**
@@ -36,6 +41,13 @@ public class Formulario extends javax.swing.JFrame {
 
         MenuEmergente = new javax.swing.JPopupMenu();
         EmergenteEliminar = new javax.swing.JMenuItem();
+        DialogNuevo = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        botonAceptar = new rojeru_san.RSButton();
+        botonCancelar = new rojeru_san.RSButton();
+        txtNombre = new rojeru_san.RSMTextFull();
+        txtNit = new rojeru_san.RSMTextFull();
+        txtDireccion = new rojeru_san.RSMTextFull();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         botonRecargarBD = new rojeru_san.RSButtonRiple();
@@ -43,15 +55,14 @@ public class Formulario extends javax.swing.JFrame {
         botonRollBack = new rojeru_san.RSButtonRiple();
         botonNuevaVentana = new rojeru_san.RSButton();
         botonCommit = new rojeru_san.RSButtonRiple();
-        rSPanelsSlider1 = new rojeru_san.RSPanelsSlider();
+        rsPanel = new rojeru_san.RSPanelsSlider();
         panelTabla = new javax.swing.JPanel();
         txtBuscar = new rojeru_san.RSMTextFull();
         botonBuscar = new rojeru_san.RSButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaCliente = new rojerusan.RSTableMetro();
         comboClientes = new javax.swing.JComboBox<>();
-        rSButton1 = new rojeru_san.RSButton();
-        jPanel3 = new javax.swing.JPanel();
+        botonNuevo = new rojeru_san.RSButton();
         BarraDeMenu = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         ModificarAislamiento = new javax.swing.JMenu();
@@ -70,6 +81,69 @@ public class Formulario extends javax.swing.JFrame {
         });
         MenuEmergente.add(EmergenteEliminar);
         EmergenteEliminar.getAccessibleContext().setAccessibleName("Eliminar");
+
+        botonAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/seo-social-web-network-internet_273_icon-icons.com_61489.png"))); // NOI18N
+        botonAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptarActionPerformed(evt);
+            }
+        });
+
+        botonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/cancel-cross_icon-icons.com_71726.png"))); // NOI18N
+        botonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarActionPerformed(evt);
+            }
+        });
+
+        txtNombre.setPlaceholder("Nombre");
+
+        txtNit.setPlaceholder("Nit");
+
+        txtDireccion.setPlaceholder("Direccion");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(77, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(67, 67, 67))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(78, Short.MAX_VALUE)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(txtNit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53))
+        );
+
+        javax.swing.GroupLayout DialogNuevoLayout = new javax.swing.GroupLayout(DialogNuevo.getContentPane());
+        DialogNuevo.getContentPane().setLayout(DialogNuevoLayout);
+        DialogNuevoLayout.setHorizontalGroup(
+            DialogNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        DialogNuevoLayout.setVerticalGroup(
+            DialogNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -189,7 +263,12 @@ public class Formulario extends javax.swing.JFrame {
         comboClientes.setEditable(true);
         comboClientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Deudores", "Sin deuda", " " }));
 
-        rSButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/add-new-document_icon-icons.com_54068.png"))); // NOI18N
+        botonNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/add-new-document_icon-icons.com_54068.png"))); // NOI18N
+        botonNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonNuevoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
         panelTabla.setLayout(panelTablaLayout);
@@ -206,7 +285,7 @@ public class Formulario extends javax.swing.JFrame {
                             .addComponent(comboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(rSButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                            .addComponent(botonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
                             .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -216,11 +295,11 @@ public class Formulario extends javax.swing.JFrame {
             .addGroup(panelTablaLayout.createSequentialGroup()
                 .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTablaLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelTablaLayout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(rSButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)))
+                        .addComponent(botonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29)
                 .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -230,20 +309,7 @@ public class Formulario extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        rSPanelsSlider1.add(panelTabla, "card2");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 507, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 412, Short.MAX_VALUE)
-        );
-
-        rSPanelsSlider1.add(jPanel3, "card3");
+        rsPanel.add(panelTabla, "card2");
 
         BarraDeMenu.setBackground(new java.awt.Color(0, 112, 192));
 
@@ -307,15 +373,15 @@ public class Formulario extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(rSPanelsSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
+                .addContainerGap(47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rSPanelsSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(4, 4, 4))
         );
@@ -358,6 +424,7 @@ public class Formulario extends javax.swing.JFrame {
         }
         conexion.conexion.llenarTabla(titulos, TablaCliente, consulta);
     }
+    
     //Ver el aislamiento de la base
     private void VerAsilamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerAsilamientoActionPerformed
         String nivelAislamiento = "";
@@ -408,7 +475,9 @@ public class Formulario extends javax.swing.JFrame {
     }//GEN-LAST:event_botonRollBackActionPerformed
 
     private void botonNuevaVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaVentanaActionPerformed
-        Transacciones_1_0.main(null);
+        //Transacciones_1_0.main(null);
+        Formulario form = new Formulario();
+        form.setVisible(true);
     }//GEN-LAST:event_botonNuevaVentanaActionPerformed
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
@@ -439,6 +508,33 @@ public class Formulario extends javax.swing.JFrame {
         botonIniciarTran.setEnabled(true);
         CargarTabla("",comboClientes.getSelectedIndex());
     }//GEN-LAST:event_botonCommitActionPerformed
+
+    private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoActionPerformed
+      DialogNuevo.setVisible(true);
+    }//GEN-LAST:event_botonNuevoActionPerformed
+
+    private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
+        if(txtDireccion.getText().length()>0&&txtNit.getText().length()>0&&txtDireccion.getText().length()>0){
+            String consula = "insert into cliente(Nombre,Nit,Direccion,Saldo) values('"+
+                    txtNombre.getText()+"','"+txtNit.getText()+"','"+txtDireccion.getText()+"',"+0+")"
+                    ;
+            conexion.conexion.EjecutarInstruccion(consula);
+            DialogNuevo.dispose();
+            txtDireccion.setText("");
+            txtNit.setText("");
+            txtNombre.setText("");
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botonAceptarActionPerformed
+
+    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
+        DialogNuevo.dispose();
+        txtDireccion.setText("");
+        txtNit.setText("");
+        txtNombre.setText("");
+    }//GEN-LAST:event_botonCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -477,6 +573,7 @@ public class Formulario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar BarraDeMenu;
+    private javax.swing.JDialog DialogNuevo;
     private javax.swing.JMenuItem EmergenteEliminar;
     private javax.swing.JPopupMenu MenuEmergente;
     private javax.swing.JMenu ModificarAislamiento;
@@ -486,10 +583,13 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JMenuItem Serializable;
     private rojerusan.RSTableMetro TablaCliente;
     private javax.swing.JMenuItem VerAsilamiento;
+    private rojeru_san.RSButton botonAceptar;
     private rojeru_san.RSButton botonBuscar;
+    private rojeru_san.RSButton botonCancelar;
     private rojeru_san.RSButtonRiple botonCommit;
     private rojeru_san.RSButtonRiple botonIniciarTran;
     private rojeru_san.RSButton botonNuevaVentana;
+    private rojeru_san.RSButton botonNuevo;
     private rojeru_san.RSButtonRiple botonRecargarBD;
     private rojeru_san.RSButtonRiple botonRollBack;
     private javax.swing.JComboBox<String> comboClientes;
@@ -499,8 +599,10 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelTabla;
-    private rojeru_san.RSButton rSButton1;
-    private rojeru_san.RSPanelsSlider rSPanelsSlider1;
+    private rojeru_san.RSPanelsSlider rsPanel;
     private rojeru_san.RSMTextFull txtBuscar;
+    private rojeru_san.RSMTextFull txtDireccion;
+    private rojeru_san.RSMTextFull txtNit;
+    private rojeru_san.RSMTextFull txtNombre;
     // End of variables declaration//GEN-END:variables
 }
