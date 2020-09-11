@@ -24,9 +24,14 @@ public class Formulario extends javax.swing.JFrame {
         conexion = new VariableGlobal();
         botonRollBack.setEnabled(false);
         botonCommit.setEnabled(false);
+        //
         DialogNuevo.setTitle("Nuevo cliente");
         DialogNuevo.setLocationRelativeTo(null);
         DialogNuevo.setSize(404,430);
+        //
+        DialogModificar.setTitle("Modificar");
+        DialogModificar.setLocationRelativeTo(null);
+        DialogModificar.setSize(422,482);
         //DialogNuevo.setDefaultCloseOperation(DialogNuevo.EXIT_ON_CLOSE);
     }
 
@@ -41,6 +46,8 @@ public class Formulario extends javax.swing.JFrame {
 
         MenuEmergente = new javax.swing.JPopupMenu();
         EmergenteEliminar = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        EmergenteModificar = new javax.swing.JMenuItem();
         DialogNuevo = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
         botonAceptar = new rojeru_san.RSButton();
@@ -48,6 +55,13 @@ public class Formulario extends javax.swing.JFrame {
         txtNombre = new rojeru_san.RSMTextFull();
         txtNit = new rojeru_san.RSMTextFull();
         txtDireccion = new rojeru_san.RSMTextFull();
+        DialogModificar = new javax.swing.JDialog();
+        botonGuarM = new rojeru_san.RSButton();
+        botonCancelM = new rojeru_san.RSButton();
+        txtNombreM = new rojeru_san.RSMTextFull();
+        txtNitM = new rojeru_san.RSMTextFull();
+        txtDirecM = new rojeru_san.RSMTextFull();
+        txtSaldo = new rojeru_san.RSMTextFull();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         botonRecargarBD = new rojeru_san.RSButtonRiple();
@@ -73,14 +87,21 @@ public class Formulario extends javax.swing.JFrame {
         VerAsilamiento = new javax.swing.JMenuItem();
 
         EmergenteEliminar.setText("Eliminar");
-        EmergenteEliminar.setActionCommand("Eliminar");
         EmergenteEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EmergenteEliminarActionPerformed(evt);
             }
         });
         MenuEmergente.add(EmergenteEliminar);
-        EmergenteEliminar.getAccessibleContext().setAccessibleName("Eliminar");
+        MenuEmergente.add(jSeparator1);
+
+        EmergenteModificar.setText("Modificar");
+        EmergenteModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EmergenteModificarActionPerformed(evt);
+            }
+        });
+        MenuEmergente.add(EmergenteModificar);
 
         botonAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/seo-social-web-network-internet_273_icon-icons.com_61489.png"))); // NOI18N
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -143,6 +164,71 @@ public class Formulario extends javax.swing.JFrame {
         DialogNuevoLayout.setVerticalGroup(
             DialogNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        botonGuarM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/seo-social-web-network-internet_273_icon-icons.com_61489.png"))); // NOI18N
+        botonGuarM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGuarMActionPerformed(evt);
+            }
+        });
+
+        botonCancelM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/cancel-cross_icon-icons.com_71726.png"))); // NOI18N
+        botonCancelM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelMActionPerformed(evt);
+            }
+        });
+
+        txtNombreM.setPlaceholder("Nombre");
+        txtNombreM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreMActionPerformed(evt);
+            }
+        });
+
+        txtNitM.setPlaceholder("Nit");
+
+        txtDirecM.setPlaceholder("Direccion");
+
+        txtSaldo.setPlaceholder("Saldo");
+
+        javax.swing.GroupLayout DialogModificarLayout = new javax.swing.GroupLayout(DialogModificar.getContentPane());
+        DialogModificar.getContentPane().setLayout(DialogModificarLayout);
+        DialogModificarLayout.setHorizontalGroup(
+            DialogModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DialogModificarLayout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addGroup(DialogModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(DialogModificarLayout.createSequentialGroup()
+                        .addGroup(DialogModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDirecM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNitM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombreM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(DialogModificarLayout.createSequentialGroup()
+                        .addComponent(botonGuarM, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)
+                        .addComponent(botonCancelM, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(104, 104, 104))))
+        );
+        DialogModificarLayout.setVerticalGroup(
+            DialogModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DialogModificarLayout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(txtNombreM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(txtNitM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(txtDirecM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addGroup(DialogModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonGuarM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonCancelM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -281,8 +367,8 @@ public class Formulario extends javax.swing.JFrame {
                     .addGroup(panelTablaLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(botonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
@@ -296,11 +382,11 @@ public class Formulario extends javax.swing.JFrame {
                 .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTablaLayout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(botonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
+                        .addComponent(botonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(comboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29)
+                .addGap(22, 22, 22)
                 .addGroup(panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -536,6 +622,51 @@ public class Formulario extends javax.swing.JFrame {
         txtNombre.setText("");
     }//GEN-LAST:event_botonCancelarActionPerformed
 
+    private void EmergenteModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmergenteModificarActionPerformed
+       int fila = TablaCliente.getSelectedRow();
+        if(fila>0){
+            txtNombreM.setText((String) TablaCliente.getValueAt(fila,1));
+            txtNitM.setText((String) TablaCliente.getValueAt(fila,2));
+            txtDirecM.setText((String) TablaCliente.getValueAt(fila,3));
+            String saldo = TablaCliente.getValueAt(fila,4)+"";
+            txtSaldo.setText(saldo);
+            DialogModificar.setVisible(true);
+            
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Seleccione un cliente","Error",JOptionPane.ERROR_MESSAGE);
+        }
+       
+    }//GEN-LAST:event_EmergenteModificarActionPerformed
+
+    private void txtNombreMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreMActionPerformed
+
+    private void botonGuarMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuarMActionPerformed
+        int fila = TablaCliente.getSelectedRow();
+        if(txtNombreM.getText().length()>0 && txtNitM.getText().length()>0 && txtDirecM.getText().length()>0&&txtSaldo.getText().length()>0){
+           String consulta;
+           consulta = "update cliente set Nombre = '"+txtNombreM.getText()+"',"+"Nit ='"+txtNitM.getText()+"',"+"Direccion = '"+txtDirecM.getText()
+                   +"', Saldo = "+txtSaldo.getText()+" where id = "+TablaCliente.getValueAt(fila,0);
+           conexion.conexion.EjecutarInstruccion(consulta);
+           DialogModificar.dispose();
+            CargarTabla("",comboClientes.getSelectedIndex());
+                   
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Llene todos los campos","Error",JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_botonGuarMActionPerformed
+
+    private void botonCancelMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelMActionPerformed
+        DialogModificar.dispose();
+        txtDirecM.setText("");
+        txtNitM.setText("");
+        txtNombreM.setText("");
+        txtSaldo.setText("");
+    }//GEN-LAST:event_botonCancelMActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -573,8 +704,10 @@ public class Formulario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar BarraDeMenu;
+    private javax.swing.JDialog DialogModificar;
     private javax.swing.JDialog DialogNuevo;
     private javax.swing.JMenuItem EmergenteEliminar;
+    private javax.swing.JMenuItem EmergenteModificar;
     private javax.swing.JPopupMenu MenuEmergente;
     private javax.swing.JMenu ModificarAislamiento;
     private javax.swing.JMenuItem ReadCommitted;
@@ -585,8 +718,10 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JMenuItem VerAsilamiento;
     private rojeru_san.RSButton botonAceptar;
     private rojeru_san.RSButton botonBuscar;
+    private rojeru_san.RSButton botonCancelM;
     private rojeru_san.RSButton botonCancelar;
     private rojeru_san.RSButtonRiple botonCommit;
+    private rojeru_san.RSButton botonGuarM;
     private rojeru_san.RSButtonRiple botonIniciarTran;
     private rojeru_san.RSButton botonNuevaVentana;
     private rojeru_san.RSButton botonNuevo;
@@ -598,11 +733,16 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPanel panelTabla;
     private rojeru_san.RSPanelsSlider rsPanel;
     private rojeru_san.RSMTextFull txtBuscar;
+    private rojeru_san.RSMTextFull txtDirecM;
     private rojeru_san.RSMTextFull txtDireccion;
     private rojeru_san.RSMTextFull txtNit;
+    private rojeru_san.RSMTextFull txtNitM;
     private rojeru_san.RSMTextFull txtNombre;
+    private rojeru_san.RSMTextFull txtNombreM;
+    private rojeru_san.RSMTextFull txtSaldo;
     // End of variables declaration//GEN-END:variables
 }
